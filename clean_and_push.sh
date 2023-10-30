@@ -4,6 +4,7 @@ find . \( -name '*~' \) -delete
 find . \( -name ".*swp" \) -delete
 find . \( -name "*.o" \) -delete
 find . \( -name "a.out" \) -delete
+make -C 0x0 fclean
 
 if [ $# != 1 ]
 then
