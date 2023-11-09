@@ -1,15 +1,10 @@
-#ifndef CONTACT_CLASS_HPP
-# define CONTACT_CLASS_HPP
-#endif
+#include<iostream>
+#pragma once
 
 class Contact
 {
-	private:
-		int i;
 	public:
-		int index;
-		char first_name[20];
-		char last_name[20];
-		char nickname[20];
-		Contact( void );
+		std::string first_name;
+		std::string last_name;
+		std::string nickname;
 };

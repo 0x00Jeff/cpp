@@ -1,6 +1,4 @@
-#ifndef PHONEBOOK_CLASS_HPP
-# define PHONEBOOK_CLASS_HPP
-#endif
+#pragma once
 
 #include"Contact.class.hpp"
 
@@ -8,7 +6,8 @@ class PhoneBook
 {
 	private:
 		int index;
-	public:
 		Contact contacts[8];
+	public:
 		PhoneBook( void );
+		void add_contact( void );
 };
