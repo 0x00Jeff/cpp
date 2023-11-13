@@ -2,6 +2,15 @@
 #include"PhoneBook.class.hpp"
 #include<iostream>
 
+std::string get_input(std::string prompt)
+{
+	std::string input;
+	std::cout << prompt;
+	std::getline(std::cin, input);
+
+	return input;
+}
+
 
 int main(void)
 {
@@ -17,6 +26,12 @@ int main(void)
 		{
 			std::cout << "adding contact .." << std::endl;
 			phone.add_contact();
+		}
+		// TODO : FOR DEBUG. DEBUG, LATER!!
+		else if (choice == "VIEW")
+		{
+			std::cout << "viewing contact .." << std::endl;
+			phone.view_contact();
 		}
 		else if (choice == "SEARCH")
 		{
