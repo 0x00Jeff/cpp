@@ -12,4 +12,6 @@ class PhoneBook
 		PhoneBook( void );
 		void add_contact( void );
 		void view_contact( void );
+		void display_contact( int index );
+		
 };

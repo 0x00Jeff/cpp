@@ -12,6 +12,7 @@ class Contact
 		std::string phone_number;
 		std::string darkest_secret;
 	public:
-		void fill_info();
-		void view_info();
+		void fill_info( void );
+		void view_info( void );
+		std::string get_name( void ); // only for debug ?
 };

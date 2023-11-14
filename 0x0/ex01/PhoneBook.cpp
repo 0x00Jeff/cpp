@@ -10,6 +10,12 @@ void PhoneBook::add_contact( void )
 	index = ++index % 8;
 }
 
+void PhoneBook::display_contact( int i )
+{
+	std::cout << "received index : " << i << std::endl;
+	std::cout << contacts[i].get_name().size() << std::endl;;
+}
+
 void PhoneBook::view_contact( void )
 {
 	std::cout << "viewing contact #" << this -> i << std::endl;

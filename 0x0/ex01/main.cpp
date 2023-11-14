@@ -14,6 +14,7 @@ std::string get_input(std::string prompt)
 
 int main(void)
 {
+	int index;
 	std::string choice;
 	PhoneBook phone;
 	
@@ -35,7 +36,10 @@ int main(void)
 		}
 		else if (choice == "SEARCH")
 		{
-			std::cout << "SEARCH" << std::endl;
+			std::cout << "enter index to search : ";
+			std::cin >> index;
+	//		phone.display_contact(index);
+			//std::cout << "SEARCH" << std::endl;
 		}
 		else if (choice == "EXIT")
 		{
@@ -43,5 +47,10 @@ int main(void)
 		}
 		else
 			std::cout << "nah" << std::endl;
+		if (std::cin.eof())
+		{
+			std::cout << "eof received!" << std::endl;
+			break;
+		}
 	}
 }

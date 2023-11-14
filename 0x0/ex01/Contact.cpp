@@ -18,3 +18,8 @@ void Contact::view_info()
 	std::cout << "phone_number : " << phone_number << std::endl;
 	std::cout << "darkest_secret : " << darkest_secret << std::endl;
 }
+
+std::string Contact::get_name( void )
+{
+	return this -> first_name;
+}
