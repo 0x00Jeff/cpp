@@ -1,4 +1,5 @@
 #pragma once
+#include<iostream>
 
 #include"Contact.class.hpp"
 
@@ -8,10 +9,10 @@ class PhoneBook
 		int index;
 		int i;
 		Contact contacts[8];
+		void display_contact( int i );
 	public:
 		PhoneBook( void );
 		void add_contact( void );
-		void view_contact( void );
-		void display_contact( int index );
-		
+		void debug_view_contact( void );
+		void search_for_contact( void );
 };

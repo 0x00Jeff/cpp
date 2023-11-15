@@ -16,9 +16,21 @@ void PhoneBook::display_contact( int i )
 	std::cout << contacts[i].get_name().size() << std::endl;;
 }
 
-void PhoneBook::view_contact( void )
+void PhoneBook::debug_view_contact( void )
 {
 	std::cout << "viewing contact #" << this -> i << std::endl;
 	contacts[i].view_info();
 	i = ++i % 8;
+}
+
+void PhoneBook::search_for_contact( void )
+{
+	std::string choice;
+	choice = get_input("Enter index to search : ");
+	std::cout << "Your choice was : " << choice << std::endl;
+	if (choice.find_first_not_of("0123456789") != std::string::npos)
+	{
+		std::cout << "invalid input!" << std::endl;
+		return;
+	}
 }
