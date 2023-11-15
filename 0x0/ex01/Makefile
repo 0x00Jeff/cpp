@@ -1,6 +1,6 @@
-CC=c++
+CXX=c++
 
-CFLAGS=-Wall -Wextra -Werror -std=c++98
+CXXFLAGS=-Wall -Wextra -Werror -std=c++98
 
 NAME = PhoneBook
 
@@ -11,7 +11,7 @@ OBJ = $(SRC:.cpp=.o)
 all: fclean $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $@
+	$(CXX) $(CFLAGS) $(OBJ) -o $@
 
 clean:
 	rm -rf $(OBJ)
