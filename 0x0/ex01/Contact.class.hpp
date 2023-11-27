@@ -18,9 +18,12 @@ class Contact
 		std::string get_phone_number( void );
 		std::string get_darkest_secret( void );
 
-		void set_first_name( std::string Fname );
+		void set_first_name( std::string fname );
+		void set_last_name( std::string lname );
+		void set_nickname( std::string nick );
+		void set_phone_number( std::string phone );
+		void set_darkest_secret( std::string secret );
 
 		void fill_info( void );
 		void view_info( void );
-		std::string get_name( void ); // only for debug ?
 };

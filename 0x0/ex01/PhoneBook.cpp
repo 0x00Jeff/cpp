@@ -13,7 +13,7 @@ void PhoneBook::add_contact( void )
 void PhoneBook::display_contact( int i )
 {
 	std::cout << "received index : " << i << std::endl;
-	std::cout << contacts[i].get_name().size() << std::endl;;
+	std::cout << contacts[i].get_first_name().size() << std::endl;;
 }
 
 void PhoneBook::debug_view_contact( void )

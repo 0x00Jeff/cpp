@@ -25,23 +25,38 @@ std::string Contact::get_darkest_secret( void )
 	return (this -> nickname);
 }
 
-void Contact::set_first_name( std::string Fname )
+void Contact::set_first_name( std::string fname )
 {
-	this -> first_name = Fname;
+	this -> first_name = fname;
 }
 
-void Contact::set_last_name( std::string lname)
+void Contact::set_last_name( std::string lname )
 {
 	this -> last_name = lname;
 }
 
+void Contact::set_nickname( std::string nick )
+{
+	this -> nickname = nick;
+}
+
+void Contact::set_phone_number( std::string phone )
+{
+	this -> phone_number = phone;
+}
+
+void Contact::set_darkest_secret( std::string secret )
+{
+	this -> darkest_secret = secret;
+}
+
 void Contact::fill_info()
 {
-	first_name = get_input("First name : ");
-	last_name = get_input("Last name: ");
-	nickname = get_input("Nickname: ");
-	phone_number = get_input("phone number : ");
-	darkest_secret = get_input ("darkest_secret : ");
+	this -> set_first_name(get_input("First name : "));
+	this -> set_last_name(get_input("Last name: "));
+	this -> set_nickname(get_input("Nickname : "));
+	this -> set_phone_number(get_input("Phone Number : "));
+	this -> set_darkest_secret(get_input("Darkest Secret : "));
 }
 
 // TODO : FOR DEBUG, DELETE LATER!!
@@ -52,9 +67,4 @@ void Contact::view_info()
 	std::cout << "nickname : " << nickname << std::endl;
 	std::cout << "phone_number : " << phone_number << std::endl;
 	std::cout << "darkest_secret : " << darkest_secret << std::endl;
-}
-
-std::string Contact::get_name( void )
-{
-	return this -> first_name;
 }
