@@ -32,19 +32,18 @@ void PhoneBook::search_for_contact( void )
 	int index; 
 
 	choice = get_input("Enter index to search : ");
-	if (choice.find_first_not_of("0123456789") != std::string::npos)
+	if (choice.find_first_not_of("-0123456789") != std::string::npos)
 	{
 		std::cout << "invalid input!" << std::endl;
 		return;
 	}
 	ss << choice;
 	ss >> index;
-	if (index < 1 || index > 8)
+	if (index < 0 || index > 7)
 	{
 		std::cout << "index out of range!" << std::endl;
 		return;
 	}
-	index--;
 	contacts[index].display_contact(index);
 }
 
