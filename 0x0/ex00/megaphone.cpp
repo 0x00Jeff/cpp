@@ -1,35 +1,34 @@
-#include<iostream>
+#include <iostream>
 
-void print_upper(char *str)
-{
-	int		i = 0;
-	char	c;
-
-	if (!str)
-		return;
-
-	while (str[i])
-	{
-		c = str[i++];
-		if (islower(c))
-			c = (char)toupper(c);
-		std::cout << c;
-	}
-}
-
-int main(int argc, char **argv)
+void	print_upper(std::string str)
 {
 	int		i;
 
-	if(argc == 1)
+	i = 0;
+	if (str.empty())
+	{
+		std::cout << "empty string !" << std::endl;
+		return ;
+	}
+	while (str[i])
+		std::cout << (char) toupper(str[i++]);
+}
+
+int	main(int argc, char **argv)
+{
+	int	i;
+	std::string arg;
+
+	if (argc == 1)
 	{
 		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
 		return (0);
 	}
-
 	i = 1;
-	std::cin.width(0x100);
 	while (i < argc)
-		print_upper(argv[i++]);
+	{
+		arg = argv[i++];
+		print_upper(arg);
+	}
 	std::cout << std::endl;
 }
