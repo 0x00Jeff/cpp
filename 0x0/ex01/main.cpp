@@ -4,7 +4,6 @@
 std::string get_input(std::string prompt)
 {
 	std::string input;
-	std::cout << prompt;
 	do {
 		std::cout << prompt;
 		std::getline(std::cin, input);

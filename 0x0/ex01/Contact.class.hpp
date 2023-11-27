@@ -26,4 +26,6 @@ class Contact
 
 		void fill_info( void );
 		void view_info( void );
+		void display_contact( int index );
+		void display_column( std::string column );
 };
