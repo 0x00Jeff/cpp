@@ -7,13 +7,12 @@ std::string get_input(std::string prompt)
 	do {
 		std::cout << prompt;
 		std::getline(std::cin, input);
+		if (std::cin.eof())
+		{
+			std::cout << std::endl;
+			exit(69);
+		}
 	} while(input.empty());
-
-	if (std::cin.eof())
-	{
-		std::cout << std::endl;
-		exit(69);
-	}
 
 	return input;
 }

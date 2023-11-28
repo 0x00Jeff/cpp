@@ -8,7 +8,7 @@ SRC = main.cpp Contact.cpp PhoneBook.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
-all: fclean $(NAME)
+all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CXX) $(CFLAGS) $(OBJ) -o $@

@@ -29,13 +29,14 @@ void PhoneBook::search_for_contact( void )
 {
 	std::stringstream ss;
 	std::string choice;
-	int index; 
+	int index;
 
+	// TODO : keep prompting till u get a valid index
 	choice = get_input("Enter index to search : ");
-	if (choice.find_first_not_of("-0123456789") != std::string::npos)
+	while (choice.find_first_not_of("-0123456789") != std::string::npos)
 	{
 		std::cout << "invalid input!" << std::endl;
-		return;
+		choice = get_input("Enter index to search : ");
 	}
 	ss << choice;
 	ss >> index;
@@ -68,5 +69,5 @@ void Contact::display_column( std::string column )
 	if (column.size() < 10)
 		std::cout << std::setw(10) << column;
 	else
-		std::cout << column.substr(9) << ".";
+		std::cout << column.substr(0, 9) << ".";
 }

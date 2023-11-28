@@ -6,10 +6,7 @@ void	print_upper(std::string str)
 
 	i = 0;
 	if (str.empty())
-	{
-		std::cout << "empty string !" << std::endl;
 		return ;
-	}
 	while (str[i])
 		std::cout << (char) toupper(str[i++]);
 }
