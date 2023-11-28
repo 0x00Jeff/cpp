@@ -1,4 +1,5 @@
 #include"Contact.class.hpp"
+#include<sstream>
 
 std::string Contact::get_first_name( void )
 {
@@ -55,16 +56,7 @@ void Contact::fill_info()
 	this -> set_first_name(get_input("First name : "));
 	this -> set_last_name(get_input("Last name: "));
 	this -> set_nickname(get_input("Nickname : "));
-	this -> set_phone_number(get_input("Phone Number : "));
+	this -> set_phone_number(get_number_string("Phone Number : "));
 	this -> set_darkest_secret(get_input("Darkest Secret : "));
 }
 
-// TODO : FOR DEBUG, DELETE LATER!!
-void Contact::view_info()
-{
-	std::cout << "first name : " << first_name << std::endl;
-	std::cout << "last name : " << last_name << std::endl;
-	std::cout << "nickname : " << nickname << std::endl;
-	std::cout << "phone_number : " << phone_number << std::endl;
-	std::cout << "darkest_secret : " << darkest_secret << std::endl;
-}

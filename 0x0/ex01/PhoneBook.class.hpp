@@ -1,13 +1,13 @@
 #pragma once
 #include<iostream>
-
 #include"Contact.class.hpp"
+
+int get_number( std::string prompt );
 
 class PhoneBook
 {
-	private:
-		int index;
-		int i;
+private:
+	int index;
 		Contact contacts[8];
 		void display_contact( int i );
 	public:

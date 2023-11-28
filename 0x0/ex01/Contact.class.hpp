@@ -2,6 +2,7 @@
 #include<iostream>
 
 std::string get_input(std::string prompt);
+std::string get_number_string( std::string prompt );
 
 class Contact
 {
@@ -25,7 +26,7 @@ class Contact
 		void set_darkest_secret( std::string secret );
 
 		void fill_info( void );
-		void view_info( void );
 		void display_contact( int index );
 		void display_column( std::string column );
+		int validate_number( std::string prompt );
 };
