@@ -26,7 +26,8 @@ class Contact
 		void set_darkest_secret( std::string secret );
 
 		void fill_info( void );
-		void display_contact( int index );
+		void display_contact_preview( int index );
+		void display_contact_info( void );
 		void display_column( std::string column );
 		int validate_number( std::string prompt );
 };

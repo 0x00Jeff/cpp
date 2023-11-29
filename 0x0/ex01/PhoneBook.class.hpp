@@ -9,7 +9,6 @@ class PhoneBook
 private:
 	int index;
 		Contact contacts[8];
-		void display_contact( int i );
 	public:
 		PhoneBook( void );
 		void add_contact( void );

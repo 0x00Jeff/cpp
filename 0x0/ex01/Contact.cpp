@@ -1,5 +1,6 @@
 #include"Contact.class.hpp"
 #include<sstream>
+#include<iomanip>
 
 std::string Contact::get_first_name( void )
 {
@@ -18,12 +19,12 @@ std::string Contact::get_nickname( void )
 
 std::string Contact::get_phone_number( void )
 {
-	return (this -> nickname);
+	return (this -> phone_number);
 }
 
 std::string Contact::get_darkest_secret( void )
 {
-	return (this -> nickname);
+	return (this -> darkest_secret);
 }
 
 void Contact::set_first_name( std::string fname )
@@ -60,3 +61,37 @@ void Contact::fill_info()
 	this -> set_darkest_secret(get_input("Darkest Secret : "));
 }
 
+void Contact::display_contact_preview(int index )
+{
+	if (this -> first_name.empty())
+		return;
+	std::cout << std::setw(10) << index << "|";
+	display_column(this -> first_name);
+	std::cout << "|";
+	display_column(this -> last_name);
+	std::cout << "|";
+	display_column(this -> nickname);
+	std::cout << std::endl;
+}
+
+void Contact::display_contact_info( void )
+{
+	if (get_first_name().empty())
+	{
+		std::cout << "contact is empty!" << std::endl;
+		return;
+	}
+	std::cout << "First name : " << get_first_name() << std::endl;
+	std::cout << "Last name : " << get_last_name() << std::endl;
+	std::cout << "Nickname : " << get_nickname() << std::endl;
+	std::cout << "Phone_number : " << get_phone_number() << std::endl;
+	std::cout << "Darkest secret : " << get_darkest_secret() << std::endl;
+}
+
+void Contact::display_column( std::string column )
+{
+	if (column.size() < 10)
+		std::cout << std::setw(10) << column;
+	else
+		std::cout << column.substr(0, 9) << ".";
+}
