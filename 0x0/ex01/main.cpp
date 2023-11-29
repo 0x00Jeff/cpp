@@ -1,5 +1,6 @@
 #include"PhoneBook.class.hpp"
 #include<iostream>
+#include<cstdlib>
 #include<sstream>
 
 int is_number( std::string input )

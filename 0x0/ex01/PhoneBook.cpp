@@ -8,7 +8,7 @@ void PhoneBook::add_contact( void )
 {
 	std::cout << "adding a new contact to index " << this -> index << std::endl;
 	contacts[index].fill_info();
-	index = ++index % 8;
+	index = (index + 1) % 8;
 }
 
 void PhoneBook::display_contact( int i )
