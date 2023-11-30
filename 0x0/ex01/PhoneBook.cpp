@@ -20,11 +20,10 @@ void PhoneBook::search_for_contact( void )
 		contacts[index].display_contact_preview(index);
 		index++;
 	}
-	index = get_number("Enter index to search : ");
-	if (index < 0 || index > 7)
-	{
-		std::cout << "index out of range!" << std::endl;
-		return;
-	}
+	do {
+		index = get_number("Enter index to search : ");
+		if (index < 0 || index > 7)
+			std::cout << "index out of range!" << std::endl;
+	} while (index < 0 || index > 7);
 	contacts[index].display_contact_info();
 }
