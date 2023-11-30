@@ -14,4 +14,5 @@ private:
 		void add_contact( void );
 		void debug_view_contact( void );
 		void search_for_contact( void );
+		void display_contacts( void );
 };
