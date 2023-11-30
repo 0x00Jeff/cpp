@@ -1,4 +1,4 @@
-#include"Contact.class.hpp"
+#include"Contact.hpp"
 #include<sstream>
 #include<iomanip>
 

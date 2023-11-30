@@ -1,4 +1,4 @@
-#include"PhoneBook.class.hpp"
+#include"PhoneBook.hpp"
 #include<iostream>
 
 PhoneBook::PhoneBook( void ) : index(0) {}

@@ -1,6 +1,6 @@
 #pragma once
 #include<iostream>
-#include"Contact.class.hpp"
+#include"Contact.hpp"
 
 int get_number( std::string prompt );
 
