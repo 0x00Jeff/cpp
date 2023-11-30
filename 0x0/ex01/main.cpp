@@ -5,7 +5,7 @@
 
 int is_number( std::string input )
 {
-	if (input.find_first_not_of("-0123456789") != std::string::npos)
+	if (input.find_first_not_of("0123456789") != std::string::npos)
 	{
 			std::cout << "invalid input!" << std::endl;
 			return (1);
