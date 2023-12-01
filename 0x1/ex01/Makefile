@@ -1,6 +1,6 @@
-CC=c++
+0x1/ex01/MakefileCXX=c++
 
-CFLAGS=-Wall -Wextra -Werror -std=c++98
+CXXFLAGS=-Wall -Wextra -Werror -std=c++98
 
 NAME = Moar_brainz
 
@@ -11,7 +11,7 @@ OBJ = $(SRC:.cpp=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $@
+	$(CXX) $(CXXFLAGS) $(OBJ) -o $@
 
 clean:
 	rm -rf $(OBJ)
