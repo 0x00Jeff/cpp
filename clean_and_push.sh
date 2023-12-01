@@ -6,6 +6,10 @@ find . \( -name "*.o" \) -delete
 find . \( -name "a.out" \) -delete
 make -C 0x0/ex00 fclean
 make -C 0x0/ex01 fclean
+for i in 0x0/ex00 0x0/ex01 0x1/ex00 0x1/ex01 0x1/ex02
+do
+	make -C $i fclean
+done
 
 if [ $# != 1 ]
 then
