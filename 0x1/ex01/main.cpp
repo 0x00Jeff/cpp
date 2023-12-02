@@ -20,6 +20,8 @@ int main(void)
 	Zombie *hord;
 
 	hord = zombieHorde(10, "jeffy");
+	if (!hord)
+		return (0);
 	i = 0;
 	while (i < 10)
 		hord[i++].annouce();

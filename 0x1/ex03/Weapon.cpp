@@ -1,9 +1,10 @@
 #include"Weapon.hpp"
 
-Weapon::Weapon()
+Weapon::Weapon( std::string _type ) : type(_type)
 {
-	std::cout << "Weapon created!" << std::endl;
+	std::cout << "Weapon created with type : " << this -> type << std::endl;
 }
+
 Weapon::~Weapon()
 {
 	std::cout << "Weapon destroyed!" << std::endl;

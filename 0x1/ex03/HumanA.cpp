@@ -1,8 +1,8 @@
 #include"HumanA.hpp"
 
-HumanA::HumanA( Weapon &w ) : weapon(w)
+HumanA::HumanA( std::string _name, Weapon &w ) : weapon(w), name(_name)
 {
-	std::cout << "HumanA created" << std::endl;
+	std::cout << "HumanA created with name : " << this -> name << std::endl;
 }
 
 HumanA::~HumanA()
