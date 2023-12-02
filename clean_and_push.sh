@@ -4,7 +4,7 @@ find . \( -name '*~' \) -delete
 find . \( -name ".*swp" \) -delete
 find . \( -name "*.o" \) -delete
 find . \( -name "a.out" \) -delete
-for i in 0x0/ex00 0x0/ex01 0x1/ex00 0x1/ex01 0x1/ex02 0x1/ex03
+for i in 0x0/ex00 0x0/ex01 0x1/ex00 0x1/ex01 0x1/ex02 0x1/ex03 0x1/ex05
 do
 	make -C $i fclean
 done
