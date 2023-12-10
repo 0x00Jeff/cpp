@@ -1,21 +1,7 @@
 #include"Zombie.hpp"
 
-Zombie *newZombie( std::string name)
-{
-	Zombie* z;
-
-	z = new Zombie();
-	z -> set_name(name);
-	return (z);
-}
-
-void randomChump( std::string name )
-{
-	Zombie z;
-
-	z.set_name(name);
-	z.annouce();
-}
+Zombie *newZombie( std::string name);
+void randomChump( std::string name );
 
 int main(void)
 {
