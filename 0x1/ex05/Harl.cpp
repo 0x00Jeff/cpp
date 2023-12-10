@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Harl.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/10 17:24:05 by afatimi           #+#    #+#             */
+/*   Updated: 2023/12/10 17:30:31 by afatimi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"Harl.hpp"
 
 Harl::Harl() 
@@ -43,10 +55,10 @@ void Harl::complain( std::string level )
 	switch (index)
 	{
 		case 0 ... 3:
-			std::cout << "good level" << std::endl;
+			(this->*(ptrs[index]))();
 			break;
 		default:
-			std::cout << "bad level" << std::endl;
+			std::cout << "warning level [" << level << "] doesn't exist" << std::endl;
 			break;
 	}
 }

@@ -15,4 +15,4 @@ class Harl
 		void complain( std::string level );
 };
 
-typedef void (Harl::*)(void)
+typedef void (Harl::*func_ptr)(void);
