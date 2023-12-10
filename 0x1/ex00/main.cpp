@@ -22,7 +22,7 @@ int main(void)
 	Zombie z;
 	z.set_name("kek");
 	z.annouce();
-	Zombie *z_ptr = newZombie("jeffy");
+	Zombie *z_ptr = newZombie("jeff");
 	z_ptr -> annouce();
 	delete z_ptr;
 	randomChump("jeffy");

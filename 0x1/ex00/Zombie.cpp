@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 21:28:11 by afatimi           #+#    #+#             */
-/*   Updated: 2023/11/30 21:40:14 by afatimi          ###   ########.fr       */
+/*   Updated: 2023/12/10 17:34:04 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ Zombie::Zombie ( void )
 
 Zombie::~Zombie ( void )
 {
-	std::cout << "Zombie destroyed!" << std::endl;
+	std::cout << "Zombie " << get_name() << " destroyed!" << std::endl;
 }
 
 void Zombie::annouce( void )
