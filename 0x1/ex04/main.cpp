@@ -6,42 +6,32 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 02:00:13 by afatimi           #+#    #+#             */
-/*   Updated: 2023/12/09 03:18:43 by afatimi          ###   ########.fr       */
+/*   Updated: 2023/12/10 17:07:55 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<iostream>
 #include<fstream>
+#include<sstream>
 
-std::string line_replace( std::string line, std::string s1, std::string s2 )
+std::string replace_at_home( std::string buffer, std::string s1, std::string s2 )
 {
 	size_t needle_index;
 	std::string result;
+	std::string rest;
 
-	if (s1.find(s2) == std::string::npos)
-		return (s1);
-	while (s1.find(s2) != std::string::npos)
+	if (buffer.find(s1) == std::string::npos)
+		return (buffer);
+	if (buffer.find(s1) != std::string::npos)
 	{
-		needle_index = s1.find(s2);
-		result = line.substr(0, needle_index);
+		needle_index = buffer.find(s1);
+		result = buffer.substr(0, needle_index);
 		result += s2;
- 		result += line.substr(needle_index + s2.size(), std::string::npos);
+ 		rest = buffer.substr(needle_index + s1.size(), std::string::npos);
 	}
-	return (result);
-}
-
-void replace_at_home( std::ifstream& ifs, std::ofstream& ofs, std::string old_string, std::string new_string)
-{
-	(void)new_string;
-	(void)ofs;
-	std::string line;
-	while (ifs.good())
-	{
-		std::getline(ifs, line);
-		std::cout << line << " -> " << line_replace(line, old_string, new_string) << std::endl;
-		if (!ifs.good())
-		   	std::cout << std::endl;
-	}
+	else
+		result = buffer;
+	return (result + replace_at_home(rest, s1, s2));
 }
 
 int main(int argc, char *argv[])
@@ -50,7 +40,7 @@ int main(int argc, char *argv[])
 	std::ofstream ofs;
 	std::string old_string, new_string;
 	std::string input, output;
-	std::string line;
+	std::stringstream file_buff;
 
 	if (argc != 4)
 	{
@@ -78,8 +68,10 @@ int main(int argc, char *argv[])
 		return (-1);
 	}
 
-	replace_at_home(ifs, ofs, old_string, new_string);
+	file_buff << ifs.rdbuf();
+	ofs << replace_at_home(file_buff.str(), old_string, new_string);
 
 	ifs.close();
 	ofs.close();
+	return (0);
 }
