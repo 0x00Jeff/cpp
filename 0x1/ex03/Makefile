@@ -2,7 +2,7 @@ CXX=c++
 
 CXXFLAGS=-Wall -Wextra -Werror -std=c++98
 
-NAME = Moar_brainz
+NAME = Violence
 
 SRC = main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
 

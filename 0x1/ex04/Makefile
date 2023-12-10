@@ -1,6 +1,6 @@
 CXX=c++
 
-CXXFLAGS=-Wall -Wextra -Werror -std=c++98 -g -ggdb3 -fsanitize=address
+CXXFLAGS=-Wall -Wextra -Werror -std=c++98
 
 NAME = sed_at_home
 
