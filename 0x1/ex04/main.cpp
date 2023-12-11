@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 02:00:13 by afatimi           #+#    #+#             */
-/*   Updated: 2023/12/10 19:02:21 by afatimi          ###   ########.fr       */
+/*   Updated: 2023/12/11 22:59:25 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ std::string replace_at_home( std::string buffer, std::string s1, std::string s2 
 	std::string result;
 	std::string rest;
 
-	if (buffer.find(s1) == std::string::npos || buffer.empty() || s1.empty() || s2.empty())
+	if (buffer.find(s1) == std::string::npos || buffer.empty() || s1.empty())
 		return (buffer);
 	if (buffer.find(s1) != std::string::npos)
 	{
