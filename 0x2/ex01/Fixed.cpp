@@ -10,14 +10,14 @@ Fixed::Fixed( void ) : n(0)
 
 Fixed::Fixed( const int _n )
 {
-	std::cout << "Int parameterized constructor called" << std::endl;
+	std::cout << "Int constructor called" << std::endl;
 	this -> n = _n << fbits;
 }
 
-Fixed::Fixed( const float fn)
+Fixed::Fixed( const float fn )
 {
-	(void)fn;
-	std::cout << "not yet implemeted!!" << std::endl;
+	std::cout << "Float constructor called" << std::endl;
+	n = roundf(fn * (1 << fbits));
 }
 
 Fixed::~Fixed( void )
@@ -33,13 +33,11 @@ Fixed::Fixed ( Fixed const & src )
 
 int Fixed::getRawBits( void ) const
 {
-	std::cout << "getRawBits member function called" << std::endl;
 	return ( this -> n );
 }
 
 void Fixed::setRawBits( int const raw )
 {
-	std::cout << "setRawBits member function called" << std::endl;
 	this -> n = raw;
 }
 
@@ -48,18 +46,21 @@ Fixed & Fixed::operator=( Fixed const & src)
 	std::cout << "Copy assignment operator called" << std::endl;
 	if ( this != &src)
 		this -> n = src.getRawBits();
-
 	return *this;
 }
 
 float Fixed::toFloat( void ) const
 {
-	std::cout << "not yet implemeted!!" << std::endl;
-	return (0xdeadbeef * 0.69);
+	return ((float)this -> n / (1 << fbits));
 }
 
 int Fixed::toInt( void ) const
 {
-	return (this -> n >> fbits);
+	return ( n >> fbits );
 }
 
+std::ostream& operator<<(std::ostream& os, const Fixed &f)
+{
+	os << f.toFloat();
+	return (os);
+}

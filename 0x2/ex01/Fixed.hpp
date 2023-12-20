@@ -1,4 +1,6 @@
 #pragma once
+#include<iostream>
+#include<sstream>
 
 class Fixed
 {
@@ -20,3 +22,5 @@ class Fixed
 
 		~Fixed( void );
 };
+
+std::ostream& operator<<(std::ostream& os, const Fixed &f);
