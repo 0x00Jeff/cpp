@@ -23,4 +23,4 @@ class Fixed
 		~Fixed( void );
 };
 
-std::ostream& operator<<(std::ostream& os, const Fixed &f);
+std::ostream& operator<<(std::ostream& os, const Fixed& f);

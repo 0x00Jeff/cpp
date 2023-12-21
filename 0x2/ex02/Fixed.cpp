@@ -1,5 +1,5 @@
-#include<iostream>
 #include"Fixed.hpp"
+#include<iostream>
 
 const int Fixed::fbits = 8;
 
@@ -63,4 +63,68 @@ std::ostream& operator<<(std::ostream& os, const Fixed& f)
 {
 	os << f.toFloat();
 	return (os);
+}
+
+bool Fixed::operator<( const Fixed& f )
+{
+	return (this -> n < f.getRawBits());
+}
+
+bool Fixed::operator<=( const Fixed& f )
+{
+	return (this -> n <= f.getRawBits());
+}
+
+bool Fixed::operator>( const Fixed& f )
+{
+	return (this -> n > f.getRawBits());
+}
+
+bool Fixed::operator>=( const Fixed& f )
+{
+	return (this -> n >= f.getRawBits());
+}
+
+bool Fixed::operator==( const Fixed& f )
+{
+	return (this -> n == f.getRawBits());
+}
+
+bool Fixed::operator!=( const Fixed& f )
+{
+	return (this -> n ^ f.getRawBits());
+}
+
+Fixed& min( Fixed& f1, Fixed& f2 )
+{
+	if (f1 < f2)
+		return (f1);
+	return (f2);
+}
+
+Fixed& max( Fixed& f1, Fixed& f2 )
+{
+	if (f1 > f2)
+		return (f1);
+	return (f2);
+}
+
+const Fixed& min( const Fixed &f1, const Fixed &f2 )
+{
+	if (f1.getRawBits() < f2.getRawBits())
+		return (f1);
+	return (f2);
+}
+
+const Fixed& max( const Fixed&  f1, const Fixed& f2)
+{
+	if (f1.getRawBits() > f2.getRawBits())
+		return (f1);
+	return (f2);
+}
+
+Fixed& operator+( const Fixed& f )
+{
+	this -> n += f.getRawBits();
+	return (*this);
 }
