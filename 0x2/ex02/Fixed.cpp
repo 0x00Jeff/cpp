@@ -95,36 +95,70 @@ bool Fixed::operator!=( const Fixed& f )
 	return (this -> n ^ f.getRawBits());
 }
 
-Fixed& min( Fixed& f1, Fixed& f2 )
+Fixed& Fixed::min( Fixed& f1, Fixed& f2 )
 {
 	if (f1 < f2)
 		return (f1);
 	return (f2);
 }
 
-Fixed& max( Fixed& f1, Fixed& f2 )
+Fixed& Fixed::max( Fixed& f1, Fixed& f2 )
 {
 	if (f1 > f2)
 		return (f1);
 	return (f2);
 }
 
-const Fixed& min( const Fixed &f1, const Fixed &f2 )
+const Fixed& Fixed::min( const Fixed &f1, const Fixed &f2 )
 {
 	if (f1.getRawBits() < f2.getRawBits())
 		return (f1);
 	return (f2);
 }
 
-const Fixed& max( const Fixed&  f1, const Fixed& f2)
+const Fixed& Fixed::max( const Fixed&  f1, const Fixed& f2)
 {
 	if (f1.getRawBits() > f2.getRawBits())
 		return (f1);
 	return (f2);
 }
 
-Fixed& operator+( const Fixed& f )
+Fixed Fixed::operator +( const Fixed& f )
 {
-	this -> n += f.getRawBits();
+	return Fixed(this -> toFloat() + f.toFloat());
+}
+
+Fixed Fixed::operator-( const Fixed& f )
+{
+	return Fixed(this -> toFloat() - f.toFloat());
+}
+
+Fixed Fixed::operator*( const Fixed& f ) const
+{
+	Fixed point;
+	long long res = this -> n * f.n;
+	point.setRawBits(res >> fbits);
+	return (point);
+}
+
+
+Fixed Fixed::operator/( const Fixed& f ) const
+{
+	Fixed point;
+	long long res = ((this -> n) << fbits) / f.n;
+	point.setRawBits(res);
+	return (point);
+}
+
+Fixed& Fixed::operator++()
+{
+	++(this -> n);
 	return (*this);
+}
+
+Fixed Fixed::operator++(int)
+{
+	Fixed old = *this;
+	++(*this);
+	return (old);
 }

@@ -26,16 +26,19 @@ class Fixed
 		bool operator==( const Fixed& f );
 		bool operator!=( const Fixed& f );
 
-		Fixed& operator+( const Fixed& f );
-		Fixed& operator-( const Fixed& f );
-		Fixed& operator*( const Fixed& f );
-		Fixed& operator/( const Fixed& f );
+		Fixed operator+( const Fixed& f );
+		Fixed operator-( const Fixed& f );
+		Fixed operator*( const Fixed& f ) const;
+		Fixed operator/( const Fixed& f ) const;
 
-		static Fixed& min( Fixed &f1, Fixed f2);
-		static const Fixed& min( Fixed const &f1, Fixed const f2);
+		Fixed& operator++();
+		Fixed operator++(int);
 
-		static Fixed& max( Fixed &f1, Fixed f2);
-		static const Fixed& max( Fixed const &f1, Fixed const f2);
+		static Fixed& min( Fixed &f1, Fixed &f2);
+		static const Fixed& min( Fixed const &f1, Fixed const &f2);
+
+		static Fixed& max( Fixed &f1, Fixed &f2);
+		static const Fixed& max( Fixed const &f1, Fixed const &f2);
 
 		~Fixed( void );
 };
