@@ -1,41 +1,40 @@
 #include"ClapTrap.hpp"
 
-ClapTrap::ClapTrap()
+ClapTrap::ClapTrap ( std::string _name ) : name(_name), hit_points(10), energy_points(10), attack_damage(10)
 {
-}
-
-ClapTrap::ClapTrap( std::string _name ) : hit_points(10), energy_points(10), attack_damage(0)
-{
-	name = _name;
-	std::cout << "ClapTrap created with name " << name << "!" << std::endl;
+	std::cout << "ClapTrap " << name << " created!" << std::endl;
 }
 
 void ClapTrap::attack(const std::string& target)
 {
-	if (this -> energy_points <= 0)
+	if (this -> energy_points == 0)
 		return;
+
 	this -> energy_points--;
-	std::cout << "ClapTrap " << name << " attacks " << target << " , causing " << this -> attack_damage << " points of damage!" << std::endl;
+	std::cout << "ClapTrap " << name << " attacks " << target << ", causing " << attack_damage << " points of damage!" << std::endl;
 }
 
 void ClapTrap::takeDamage(unsigned int amount)
 {
-	this -> hit_points -= amount;
-	if (this -> hit_points)
+	if (amount > this -> hit_points)
 		this -> hit_points = 0;
+	else
+		this -> hit_points -= amount;
+
 	std::cout << this -> name << " took " << amount << " points of damage!" << std::endl;
 }
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-	if (this -> energy_points <= 0)
+	if (this -> energy_points == 0)
 		return;
 	this -> energy_points--;
 	this -> hit_points += amount;
+
 	std::cout << this -> name << " repaired " << amount << " points!" << std::endl;
 }
 
-ClapTrap::~ClapTrap()
+ClapTrap::~ClapTrap ()
 {
 	std::cout << "ClapTrap " << name << " destroyed!" << std::endl;
 }

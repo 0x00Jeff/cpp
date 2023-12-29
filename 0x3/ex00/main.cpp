@@ -8,6 +8,6 @@ int main(void)
 	jeff.attack("jeff");
 	jeff.attack("jeff");
 	jeff.attack("jeff");
-	jeff.takeDamage(69);
+	jeff.takeDamage(4);
 	jeff.beRepaired(30);
 }
