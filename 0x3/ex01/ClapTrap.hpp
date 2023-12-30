@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 
+
 class ClapTrap
 {
 	protected:
@@ -10,11 +11,15 @@ class ClapTrap
 		int				attack_damage;
 
 	public:
+		ClapTrap ( void );
 		ClapTrap ( std::string _name );
+		ClapTrap ( ClapTrap const & src);
+
+		ClapTrap & operator=( ClapTrap const & );
 
 		void attack(const std::string& target);
 		void takeDamage(unsigned int amount);
 		void beRepaired(unsigned int amount);
 
-		~ClapTrap ();
+		virtual ~ClapTrap ();
 };

@@ -8,11 +8,15 @@ class ScavTrap : public ClapTrap
 
 	public:
 
-	ScavTrap ( std::string _name );
+		ScavTrap ( void );
+		ScavTrap ( std::string _name );
+		ScavTrap ( ScavTrap const & src );
 
-	void attack(const std::string& target);
-	void guardGate();
+		ScavTrap & operator=( ScavTrap const & src );
 
-	~ScavTrap ();
+		void attack(const std::string& target);
+		void guardGate();
+
+		~ScavTrap ();
 
 };
