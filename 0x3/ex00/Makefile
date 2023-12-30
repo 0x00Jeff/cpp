@@ -1,4 +1,4 @@
-0x1/ex01/MakefileCXX=c++
+CXX=c++
 
 CXXFLAGS=-Wall -Wextra -Werror -std=c++98
 
