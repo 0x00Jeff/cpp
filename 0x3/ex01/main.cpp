@@ -3,7 +3,7 @@
 
 int main(void)
 {
-	ClapTrap *ptr = new ScavTrap("jeff");
-	delete ptr;
-	(void)ptr;
+	ScavTrap scav("jeff");
+	scav.attack("the corrector");
+	scav.guardGate();
 }
