@@ -55,7 +55,7 @@ void ClapTrap::beRepaired(unsigned int amount)
 {
 	if (this -> energy_points == 0)
 	{
-		std::cout << this -> name << " cannot be repaired as he doesn't have enugh energy points!" << std::endl;
+		std::cout << this -> name << " cannot be repaired as they don't have enough energy points!" << std::endl;
 		return;
 	}
 	this -> energy_points--;
