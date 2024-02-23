@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 14:51:57 by afatimi           #+#    #+#             */
-/*   Updated: 2024/02/23 13:49:25 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/02/23 15:23:33 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ Bureaucrat::Bureaucrat( void ) : name("jeffy"), grade(69)
 Bureaucrat::Bureaucrat( std::string _name, uint8_t _grade ) : name(_name)
 															  , grade(_grade)
 {
+	if (_grade < HIGHEST_GRADE)
+		throw Bureaucrat::GradeTooHighException();
+	if( _grade > LOWEST_GRADE)
+		throw Bureaucrat::GradeTooLowException();
 	std::cout << "Initated Bureaucrat " << name << " with grade = " << grade << std::endl;
 }
 
