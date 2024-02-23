@@ -4,24 +4,27 @@
 #define HIGHEST_GRADE	1
 #define LOWEST_GRADE	150
 
-class Bureaucrat
+class Form
 {
-
-	protected:
+	private:
 		const std::string name;
-		int	grade;
+		bool is_signed = false;
+		int sign_grade;
+		int exec_grade;
 
 	public:
 
-		Bureaucrat( void );
-		Bureaucrat( std::string _name, uint8_t _grade );
-		Bureaucrat ( Bureaucrat const & src );
+		Form( void );
+		Form( std::string _name, int _sign_grade, int _exec_grade );
+		Form ( Form const & src );
 
-		Bureaucrat & operator=( Bureaucrat const & );
+		Form & operator=( Form const & );
 
 		// getters
-		std::string getName() const;
-		int getGrade() const;
+		const std::string getName() const;
+		bool getIsSigned() const;
+		const int getSignGrade() const;
+		const int getExecGrade() const;
 		// class functionalities
 		void incGrade(int value = 1);
 		void decGrade(int value = 1);
@@ -36,7 +39,7 @@ class Bureaucrat
 			virtual const char *what() const throw();
 		};
 
-		~Bureaucrat( void );
+		~Form( void );
 };
 
-std::ostream& operator<<(std::ostream& os, const Bureaucrat& B);
+std::ostream& operator<<(std::ostream& os, const Form& B);
