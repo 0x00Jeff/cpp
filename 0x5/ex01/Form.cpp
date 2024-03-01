@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 18:04:56 by afatimi           #+#    #+#             */
-/*   Updated: 2024/02/23 18:13:19 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:29:10 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ Form::Form( std::string _name, int _sign_grade, int _exec_grade ) : name(_name),
 	std::cout << "Initated Form " << name << " with sign_grade = " << sign_grade << " and sign grade = " << _sign_grade << std::endl;
 }
 
-Form::Form ( Form const & src )
+Form::Form ( Form const & src ) : sign_grade(src.getSignGrade()), exec_grade(src.getExecGrade())
 {
 	std::cout << "Copy constructor called" << std::endl;
 	*this = src;
@@ -36,12 +36,7 @@ Form & Form::operator=( Form const & src)
 {
 	std::cout << "Copy assignment operator called" << std::endl;
 	if ( this != &src)
-	{
-		this -> name = src.getName();
 		this -> is_signed = src.getIsSigned();
-		this -> sign_grade = src.getSignGrade();
-		this -> exec_grade = src.getExecGrade();
-	}
 	return *this;
 }
 
@@ -56,29 +51,23 @@ bool Form::getIsSigned() const
 	return this -> is_signed;
 }
 
-const int Form::getSignGrade() const
+int Form::getSignGrade() const
 {
 	return this -> sign_grade;
 }
 
-const int Form::getExecGrade() const
+int Form::getExecGrade() const
 {
 	return this -> exec_grade;
 }
 
 // class functionalities
-void Form::incGrade(int value)
+void Form::beSigned(Bureaucrat b)
 {
-	if (this -> grade - value <= HIGHEST_GRADE)
-		throw Form::GradeTooHighException();
-	this -> grade -= value;
-}
-
-void Form::decGrade(int value)
-{
-	if (this -> grade + value >= LOWEST_GRADE)
-		throw Form::GradeTooLowException();
-	this -> grade += value;
+	bool condition = b.getGrade() < this -> getSignGrade();
+	if (condition)
+		this -> is_signed = true;
+	b.signForm(this -> name, condition);
 }
 
 //exceptions
@@ -97,8 +86,8 @@ Form::~Form( void )
 	std::cout << "deleting Form " << name << std::endl;
 }
 
-std::ostream& operator<<(std::ostream& os, const Form& B)
+std::ostream& operator<<(std::ostream& os, const Form& F)
 {
-	os << B.getName() << ", Form grade " << B.getGrade() << std::endl;
+	os << F.getName() << ", IsSigned = " << F.getIsSigned() << ", sign grade = " << F.getSignGrade() << ", exec grade = " << F.getSignGrade() << std::endl;
 	return (os);
 }

@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 14:51:57 by afatimi           #+#    #+#             */
-/*   Updated: 2024/03/01 14:03:04 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/03/01 15:49:20 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,16 @@ Bureaucrat::Bureaucrat( std::string _name, uint8_t _grade ) : name(_name)
 	std::cout << "Initated Bureaucrat " << name << " with grade = " << grade << std::endl;
 }
 
-Bureaucrat::Bureaucrat ( Bureaucrat const & src )
+Bureaucrat::Bureaucrat ( Bureaucrat const & src ) : name(src.getName())
 {
+	std::cout << std::hex << this << std::endl;
 	std::cout << "Copy constructor called" << std::endl;
 	*this = src;
 }
 
 Bureaucrat & Bureaucrat::operator=( Bureaucrat const & src)
 {
+	std::cout << std::hex << this << std::endl;
 	std::cout << "Copy assignment operator called" << std::endl;
 	if ( this != &src)
 		this -> grade = src.getGrade();

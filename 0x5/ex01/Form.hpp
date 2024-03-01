@@ -1,4 +1,5 @@
 #pragma once
+#include "Bureaucrat.hpp"
 #include<iostream>
 #include<stdexcept>
 #define HIGHEST_GRADE	1
@@ -8,9 +9,9 @@ class Form
 {
 	private:
 		const std::string name;
-		bool is_signed = false;
-		int sign_grade;
-		int exec_grade;
+		bool is_signed;
+		const int sign_grade;
+		const int exec_grade;
 
 	public:
 
@@ -23,11 +24,10 @@ class Form
 		// getters
 		const std::string getName() const;
 		bool getIsSigned() const;
-		const int getSignGrade() const;
-		const int getExecGrade() const;
+		int getSignGrade() const;
+		int getExecGrade() const;
 		// class functionalities
-		void incGrade(int value = 1);
-		void decGrade(int value = 1);
+		void beSigned(Bureaucrat b);
 
 		// exceptions
 		class GradeTooHighException : public std::exception

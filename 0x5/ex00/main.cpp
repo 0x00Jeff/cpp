@@ -2,6 +2,20 @@
 
 int main(void)
 {
+	Bureaucrat aa("jeff", 15);
+	Bureaucrat ab;
+
+	std::cout << "before : " << std::endl;
+	std::cout << aa;
+	std::cout << ab;
+
+	ab = aa;
+	
+	std::cout << "after : " << std::endl;
+	std::cout << aa;
+	std::cout << ab;
+
+	return (0);
 	// grade too high
 	Bureaucrat a;
 	try {
