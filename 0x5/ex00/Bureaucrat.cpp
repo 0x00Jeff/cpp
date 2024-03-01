@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 14:51:57 by afatimi           #+#    #+#             */
-/*   Updated: 2024/02/23 15:23:33 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/03/01 14:03:04 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ Bureaucrat & Bureaucrat::operator=( Bureaucrat const & src)
 {
 	std::cout << "Copy assignment operator called" << std::endl;
 	if ( this != &src)
-	{
-		this -> name = src.getName();
 		this -> grade = src.getGrade();
-	}
 	return *this;
 }
 
@@ -58,14 +55,14 @@ int Bureaucrat::getGrade() const
 // class functionalities
 void Bureaucrat::incGrade(int value)
 {
-	if (this -> grade - value <= HIGHEST_GRADE)
+	if (this -> grade - value < HIGHEST_GRADE)
 		throw Bureaucrat::GradeTooHighException();
 	this -> grade -= value;
 }
 
 void Bureaucrat::decGrade(int value)
 {
-	if (this -> grade + value >= LOWEST_GRADE)
+	if (this -> grade + value > LOWEST_GRADE)
 		throw Bureaucrat::GradeTooLowException();
 	this -> grade += value;
 }

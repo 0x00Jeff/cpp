@@ -26,7 +26,7 @@ int main(void)
 	}
 
 	// inc exception
-	Bureaucrat c("c", 1);
+	Bureaucrat c("c", HIGHEST_GRADE);
 	try {
 		c.incGrade();
 	}
@@ -40,6 +40,7 @@ int main(void)
 	Bureaucrat d("d", LOWEST_GRADE);
 	try {
 		d.incGrade();
+		std::cout << d;
 	}
 	catch (std::exception& e)
 	{
