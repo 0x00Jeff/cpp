@@ -2,6 +2,7 @@
 
 int main(void)
 {
+	/*
 	Bureaucrat aa("jeff", 15);
 	Bureaucrat ab;
 
@@ -10,12 +11,14 @@ int main(void)
 	std::cout << ab;
 
 	ab = aa;
-	
+
 	std::cout << "after : " << std::endl;
 	std::cout << aa;
 	std::cout << ab;
 
 	return (0);
+	*/
+	/*
 	// grade too high
 	Bureaucrat a;
 	try {
@@ -24,11 +27,13 @@ int main(void)
 	catch (std::exception& e)
 	{
 		std::cout << e.what() << std::endl;
-		std::cout << a;
 	}
 
+	return (0);
+	*/
 	// grade too low
 
+	/*
 	Bureaucrat b;
 	try {
 		b = Bureaucrat("b", 169);
@@ -36,9 +41,10 @@ int main(void)
 	catch (std::exception& e)
 	{
 		std::cout << e.what() << std::endl;
-		std::cout << b;
 	}
 
+	return(0);
+	*/
 	// inc exception
 	Bureaucrat c("c", HIGHEST_GRADE);
 	try {
@@ -53,7 +59,7 @@ int main(void)
 	// dec exception
 	Bureaucrat d("d", LOWEST_GRADE);
 	try {
-		d.incGrade();
+		d.decGrade();
 		std::cout << d;
 	}
 	catch (std::exception& e)

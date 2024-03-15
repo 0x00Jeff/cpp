@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 14:51:57 by afatimi           #+#    #+#             */
-/*   Updated: 2024/03/01 15:49:20 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/03/15 15:54:31 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,27 @@
 
 Bureaucrat::Bureaucrat( void ) : name("jeffy"), grade(69)
 {
-	std::cout << "Initated default Bureaucrat " << name << " with grade = " << grade << std::endl;
+	std::cout << "Initiated default Bureaucrat " << name << " with grade = " << grade << std::endl;
 }
 
-Bureaucrat::Bureaucrat( std::string _name, uint8_t _grade ) : name(_name)
+Bureaucrat::Bureaucrat( std::string _name, int _grade ) : name(_name)
 															  , grade(_grade)
 {
 	if (_grade < HIGHEST_GRADE)
 		throw Bureaucrat::GradeTooHighException();
 	if( _grade > LOWEST_GRADE)
 		throw Bureaucrat::GradeTooLowException();
-	std::cout << "Initated Bureaucrat " << name << " with grade = " << grade << std::endl;
+	std::cout << "Initiated Bureaucrat " << name << " with grade = " << grade << std::endl;
 }
 
 Bureaucrat::Bureaucrat ( Bureaucrat const & src ) : name(src.getName())
 {
-	std::cout << std::hex << this << std::endl;
 	std::cout << "Copy constructor called" << std::endl;
 	*this = src;
 }
 
 Bureaucrat & Bureaucrat::operator=( Bureaucrat const & src)
 {
-	std::cout << std::hex << this << std::endl;
 	std::cout << "Copy assignment operator called" << std::endl;
 	if ( this != &src)
 		this -> grade = src.getGrade();
