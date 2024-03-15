@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 18:04:56 by afatimi           #+#    #+#             */
-/*   Updated: 2024/03/15 12:30:17 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/03/15 14:08:20 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ void AForm::beSigned(Bureaucrat &b)
 
 void AForm::execute(Bureaucrat const & executor) const
 {
-	if (this -> is_signed == false || executor.getGrade() > this -> exec_grade)
+	if (this -> is_signed == false)
+		throw Form_Not_Signed();
+	if (executor.getGrade() > this -> exec_grade)
 		throw Cannot_Exec_Action();
 
 	this -> do_action();
@@ -91,7 +93,12 @@ const char *AForm::GradeTooLowException::what() const throw()
 
 const char *AForm::Cannot_Exec_Action::what() const throw()
 {
-	return "Bureaucrat could not execute form action!";
+	return "Bureaucrat grade too low!";
+}
+
+const char *AForm::Form_Not_Signed::what() const throw()
+{
+	return "Form is not signed!";
 }
 
 AForm::~AForm( void )

@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:14:24 by afatimi           #+#    #+#             */
-/*   Updated: 2024/03/15 13:18:40 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/03/15 14:08:33 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ class AForm
 			virtual const char *what() const throw();
 		};
 		class Cannot_Exec_Action : public std::exception
+		{
+			virtual const char *what() const throw();
+		};
+		class Form_Not_Signed : public std::exception
 		{
 			virtual const char *what() const throw();
 		};
