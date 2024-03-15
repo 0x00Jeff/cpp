@@ -5,20 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 16:19:49 by afatimi           #+#    #+#             */
-/*   Updated: 2024/03/01 16:31:45 by afatimi          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Bureaucrat.cpp                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 14:51:57 by afatimi           #+#    #+#             */
-/*   Updated: 2024/03/01 16:19:48 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/03/14 14:42:03 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +17,7 @@ Bureaucrat::Bureaucrat( void ) : name("jeffy"), grade(69)
 	std::cout << "Initated default Bureaucrat " << name << " with grade = " << grade << std::endl;
 }
 
-Bureaucrat::Bureaucrat( std::string _name, uint8_t _grade ) : name(_name)
+Bureaucrat::Bureaucrat( std::string _name, int _grade ) : name(_name)
 															  , grade(_grade)
 {
 	if (_grade < HIGHEST_GRADE)
@@ -41,14 +29,12 @@ Bureaucrat::Bureaucrat( std::string _name, uint8_t _grade ) : name(_name)
 
 Bureaucrat::Bureaucrat ( Bureaucrat const & src ) : name(src.getName())
 {
-	std::cout << std::hex << this << std::endl;
 	std::cout << "Copy constructor called" << std::endl;
 	*this = src;
 }
 
 Bureaucrat & Bureaucrat::operator=( Bureaucrat const & src)
 {
-	std::cout << std::hex << this << std::endl;
 	std::cout << "Copy assignment operator called" << std::endl;
 	if ( this != &src)
 		this -> grade = src.getGrade();

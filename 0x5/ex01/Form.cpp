@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 18:04:56 by afatimi           #+#    #+#             */
-/*   Updated: 2024/03/01 16:29:10 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/03/14 16:06:05 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int Form::getExecGrade() const
 }
 
 // class functionalities
-void Form::beSigned(Bureaucrat b)
+void Form::beSigned(Bureaucrat &b)
 {
 	bool condition = b.getGrade() < this -> getSignGrade();
 	if (condition)

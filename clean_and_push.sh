@@ -2,17 +2,17 @@
 
 find . \( -name '*~' \) -delete &
 find . \( -name ".*swp" \) -delete &
-find . \( -name "*.o" \) -delete &
-find . \( -name "a.out" \) -delete &
 for i in 0x0/ex00 0x0/ex01 \
 	0x1/ex00 0x1/ex01 0x1/ex02 0x1/ex03 0x1/ex04 0x1/ex05 \
 	0x2/ex00 0x2/ex01 \
 	0x3/ex00 0x3/ex01 0x3/ex02 \
 	0x4/ex00 0x4/ex01 0x4/ex02 \
-	0x5/ex00 0x5/ex01
+	0x5/ex00 0x5/ex01 0x5/ex02
 do
 	make -C $i fclean &
 done
+find . \( -name "a.out" \) -delete &
+find . \( -name "*.o" \) -delete &
 
 wait
 
