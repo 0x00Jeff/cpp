@@ -3,7 +3,16 @@
 
 int main(void)
 {
-	Bureaucrat b("jeff", 80);
-	Form f("F", 70, 20);
-	f.beSigned(b);
+	try
+	{
+		Bureaucrat b("jeff", 70);
+		Form f("F", 70, 20);
+		std::cout << f;
+		f.beSigned(b);
+		std::cout << f;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 }

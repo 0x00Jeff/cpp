@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 14:51:57 by afatimi           #+#    #+#             */
-/*   Updated: 2024/03/14 14:42:03 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/03/15 16:08:12 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int Bureaucrat::getGrade() const
 {
 	return this -> grade;
 }
-
+//
 // class functionalities
 void Bureaucrat::incGrade(int value)
 {

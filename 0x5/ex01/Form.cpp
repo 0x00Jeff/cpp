@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 18:04:56 by afatimi           #+#    #+#             */
-/*   Updated: 2024/03/14 16:06:05 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/03/15 16:04:44 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ Form::Form( std::string _name, int _sign_grade, int _exec_grade ) : name(_name),
 		throw Form::GradeTooHighException();
 	if( _sign_grade > LOWEST_GRADE || _exec_grade > LOWEST_GRADE)
 		throw Form::GradeTooLowException();
-	std::cout << "Initated Form " << name << " with sign_grade = " << sign_grade << " and sign grade = " << _sign_grade << std::endl;
+	std::cout << "Initated Form " << name << " with sign grade = " << sign_grade << " and exec grade = " << _exec_grade << std::endl;
 }
 
 Form::Form ( Form const & src ) : sign_grade(src.getSignGrade()), exec_grade(src.getExecGrade())
@@ -64,9 +64,11 @@ int Form::getExecGrade() const
 // class functionalities
 void Form::beSigned(Bureaucrat &b)
 {
-	bool condition = b.getGrade() < this -> getSignGrade();
+	bool condition = b.getGrade() <= this -> getSignGrade();
 	if (condition)
 		this -> is_signed = true;
+	else
+		throw GradeTooHighException();
 	b.signForm(this -> name, condition);
 }
 
@@ -88,6 +90,6 @@ Form::~Form( void )
 
 std::ostream& operator<<(std::ostream& os, const Form& F)
 {
-	os << F.getName() << ", IsSigned = " << F.getIsSigned() << ", sign grade = " << F.getSignGrade() << ", exec grade = " << F.getSignGrade() << std::endl;
+	os << F.getName() << ", IsSigned = " << F.getIsSigned() << ", sign grade = " << F.getSignGrade() << ", exec grade = " << F.getExecGrade() << std::endl;
 	return (os);
 }
