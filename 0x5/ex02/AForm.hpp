@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:14:24 by afatimi           #+#    #+#             */
-/*   Updated: 2024/03/15 14:08:33 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/03/15 14:59:17 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ class AForm
 			virtual const char *what() const throw();
 		};
 
-		~AForm( void );
+		virtual ~AForm( void );
 };
 
 std::ostream& operator<<(std::ostream& os, const AForm& B);

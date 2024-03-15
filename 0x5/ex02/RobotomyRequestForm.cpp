@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 13:59:37 by afatimi           #+#    #+#             */
-/*   Updated: 2024/03/15 12:42:00 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/03/15 15:01:28 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ RobotomyRequestForm::RobotomyRequestForm( void ) : AForm("RobotomyRequestForm", 
 RobotomyRequestForm::RobotomyRequestForm( std::string _target ) : AForm("RobotomyRequestForm", exec_grade, sign_grade)
 {
 	target = _target;
-	std::cout << "Initiated RobotomyRequestForm " << this -> getName() << " with sign_grade = " <<  getSignGrade() << " and exec grade = " << getExecGrade() << "and target = " << target << std::endl;
+	std::cout << "Initiated RobotomyRequestForm " << this -> getName() << " with sign_grade = " <<  getSignGrade() << " and exec grade = " << getExecGrade() << " and target = " << target << std::endl;
 }
 
 RobotomyRequestForm::RobotomyRequestForm ( RobotomyRequestForm const & src ) : AForm(src)

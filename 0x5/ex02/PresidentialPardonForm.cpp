@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:40:50 by afatimi           #+#    #+#             */
-/*   Updated: 2024/03/15 12:47:16 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/03/15 15:00:25 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ const int PresidentialPardonForm::exec_grade = 5;
 
 PresidentialPardonForm::PresidentialPardonForm( void ) : AForm("PresidentialPardonForm", exec_grade, sign_grade)
 {
-	std::cout << "Initated default PresidentialPardonForm " << this -> getName() << " with sign grade = " << this -> getSignGrade() << " and an exec grade is " << this -> getExecGrade() << std::endl;
+	std::cout << "Initiated default PresidentialPardonForm " << this -> getName() << " with sign grade = " << this -> getSignGrade() << " and an exec grade is " << this -> getExecGrade() << std::endl;
 }
 
 PresidentialPardonForm::PresidentialPardonForm( std::string _target ) : AForm("PresidentialPardonForm", exec_grade, sign_grade)
 {
 	target = _target;
-	std::cout << "Initated PresidentialPardonForm " << this -> getName() << " with sign_grade = " <<  getSignGrade() << " and exec grade = " << getExecGrade() << "and target = " << target << std::endl;
+	std::cout << "Initated PresidentialPardonForm " << this -> getName() << " with sign_grade = " <<  getSignGrade() << " and exec grade = " << getExecGrade() << " and target = " << target << std::endl;
 }
 
 PresidentialPardonForm::PresidentialPardonForm ( PresidentialPardonForm const & src ) : AForm(src)

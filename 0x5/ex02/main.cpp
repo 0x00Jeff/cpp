@@ -1,14 +1,15 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 
 int main(void)
 {
+	AForm *f;
 	try {
-		Bureaucrat b("jeff", 10);
-		PresidentialPardonForm PForm("Shrub");
-		PForm.beSigned(b);
-		b.executeForm(PForm);
+		Intern i;
+		f = i.makeForm("shrubbery creation", "lol");
+		delete f;
 	}
 	catch (std::exception &e)
 	{
