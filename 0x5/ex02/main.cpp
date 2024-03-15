@@ -1,15 +1,24 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
-#include "Intern.hpp"
 
 int main(void)
 {
-	AForm *f;
-	try {
-		Intern i;
-		f = i.makeForm("shrubbery creation", "lol");
-		delete f;
+	try
+	{
+		Bureaucrat b("j", 5);
+		ShrubberyCreationForm Shrub("Shrub");
+		Shrub.beSigned(b);
+		Shrub.execute(b);
+
+		RobotomyRequestForm Robot("Robot");
+		Robot.beSigned(b);
+		Robot.execute(b);
+		Robot.execute(b);
+
+		PresidentialPardonForm	Pres("Pres");
+		Pres.beSigned(b);
+		Pres.execute(b);
 	}
 	catch (std::exception &e)
 	{
