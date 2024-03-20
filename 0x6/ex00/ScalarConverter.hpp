@@ -28,7 +28,6 @@ typedef struct s_types
 	int special_case;
 } t_types;
 
-
 class ScalarConverter
 {
 	private:
