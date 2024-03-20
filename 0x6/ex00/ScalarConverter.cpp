@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:17:14 by afatimi           #+#    #+#             */
-/*   Updated: 2024/03/20 16:57:48 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/03/20 20:52:03 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void ScalarConverter::typeDetector(std::string input, t_types &t)
 		throw InvalidInput();
 
 }
+
 void ScalarConverter::isChar(std::string input, t_types &t)
 {
 	int c;
@@ -66,7 +67,8 @@ void ScalarConverter::isChar(std::string input, t_types &t)
 	if (c < 32 || c > 126)
 		throw ScalarConverter::InvalidChar();
 
-	t.value.c = c;
+	//t.value.c = c;
+	t.value.placeholder = c;
 }
 
 void ScalarConverter::isInt(std::string input, t_types &t)
@@ -75,7 +77,7 @@ void ScalarConverter::isInt(std::string input, t_types &t)
 	if (!input.size() || input.find_first_not_of("0123456789") != std::string::npos)
 		throw ScalarConverter::InvalidInt();
 	ss << input;
-	ss >> t.value.d;
+	ss >> t.value.placeholder;
 }
 
 void ScalarConverter::isDouble(std::string input, t_types &t)
@@ -115,27 +117,24 @@ void ScalarConverter::isFloat(std::string input, t_types &t)
 
 	ScalarConverter::isDouble(input, t);
 	ss >> t.value.f;
-	std::cout << "kek : " << t.value.f << std::endl;
-	std::cout << "kek : " << static_cast<float>(t.value.placeholder);
 }
 
 // class functionalities : display
 void ScalarConverter::typeDisplayer(t_types &t)
 {
-	ScalarConverter::displayChar(static_cast<char>(t.value.c), t.special_case);
-	ScalarConverter::displayInt(static_cast<int>(t.value.d), t.special_case);
-	ScalarConverter::displayFloat(static_cast<float>(t.value.f), t.special_case);
-	ScalarConverter::displayDouble(static_cast<double>(t.value.ff), t.special_case);
+	ScalarConverter::displayChar(static_cast<char>(t.value.placeholder), t.special_case);
+	ScalarConverter::displayInt(static_cast<int>(t.value.placeholder), t.special_case);
+	ScalarConverter::displayFloat(static_cast<float>(t.value.placeholder), t.special_case);
+	ScalarConverter::displayDouble(static_cast<double>(t.value.placeholder), t.special_case);
 }
 
-void ScalarConverter::displayChar(long long c, int special_case)
+void ScalarConverter::displayChar(char c, int special_case)
 {
 	if (special_case != SPECIAL_CASE_NONE)
 	{
-		std::cout << "char: impossible" << c << std::endl;
+		std::cout << "char: impossible" << std::endl;
 		return;
 	}
-	std::cout << c << std::endl;
 	std::cout << "char: " ;
 	if (c < 32 || c > 126)
 		std::cout << "Non displayable" << std::endl;
@@ -143,7 +142,7 @@ void ScalarConverter::displayChar(long long c, int special_case)
 		std::cout << c << std::endl;
 }
 
-void ScalarConverter::displayInt(long long d, int special_case)
+void ScalarConverter::displayInt(int d, int special_case)
 {
 	if (special_case == SPECIAL_CASE_NONE)
 		std::cout << "int: " << d << std::endl;

@@ -23,7 +23,7 @@ typedef struct s_types
 		int d;
 		float f;
 		double ff;
-		long placeholder;
+		double placeholder;
 	} value;
 	int special_case;
 } t_types;
@@ -48,8 +48,8 @@ class ScalarConverter
 
 		// class functionalities : display
 		void static typeDisplayer(t_types &t);
-		void static displayChar(long long c, int special_case);
-		void static displayInt(long long d, int special_case);
+		void static displayChar(char c, int special_case);
+		void static displayInt(int d, int special_case);
 		void static displayFloat(float f, int special_case);
 		void static displayDouble(double ff, int special_case);
 
