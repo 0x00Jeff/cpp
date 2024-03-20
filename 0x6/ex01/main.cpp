@@ -8,6 +8,10 @@ int main(void)
 
 	uintptr_t ptr = Serializer::serialize(&d);
 	Data *data_ptr = Serializer::deserialize(ptr);
+
+	std::cout << &d << std::endl;
+	std::cout << data_ptr << std::endl;
+
 	std::cout << data_ptr -> name << std::endl;
 	std::cout << data_ptr -> age << std::endl;
 }
