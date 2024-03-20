@@ -6,12 +6,13 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:17:14 by afatimi           #+#    #+#             */
-/*   Updated: 2024/03/20 20:52:03 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/03/20 21:15:22 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"ScalarConverter.hpp"
 #include<sstream>
+#include <iomanip>
 
 ScalarConverter::ScalarConverter(){}
 ScalarConverter::ScalarConverter( ScalarConverter const &){}
@@ -67,7 +68,6 @@ void ScalarConverter::isChar(std::string input, t_types &t)
 	if (c < 32 || c > 126)
 		throw ScalarConverter::InvalidChar();
 
-	//t.value.c = c;
 	t.value.placeholder = c;
 }
 
@@ -139,7 +139,7 @@ void ScalarConverter::displayChar(char c, int special_case)
 	if (c < 32 || c > 126)
 		std::cout << "Non displayable" << std::endl;
 	else
-		std::cout << c << std::endl;
+		std::cout << "'" << c << "'" << std::endl;
 }
 
 void ScalarConverter::displayInt(int d, int special_case)
@@ -165,7 +165,7 @@ void ScalarConverter::displayFloat(float f, int special_case)
 			std::cout << "+inff" << std::endl;
 			break;
 		default:
-			std::cout << static_cast<float>(f) << std::endl;
+			std::cout << std::fixed << std::setprecision(1) << f << "f" << std::endl;
 	}
 }
 
@@ -184,7 +184,7 @@ void ScalarConverter::displayDouble(double ff, int special_case)
 			std::cout << "+inf" << std::endl;
 			break;
 		default:
-			std::cout << static_cast<double>(ff) << std::endl;
+			std::cout << ff << std::endl;
 	}
 }
 
