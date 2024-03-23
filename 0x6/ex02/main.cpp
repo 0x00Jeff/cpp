@@ -8,11 +8,11 @@ Base *generate( void )
 	gettimeofday(&t, NULL);
 
 	srand(t.tv_sec + t.tv_usec);
-	switch (rand() & 0b11)
+	switch (rand() % 3)
 	{
 		case 0: std::cout << "returning A " << std::endl ; instance = new A; break;
 		case 1: std::cout << "returning B " << std::endl ; instance = new B; break;
-		case 2 : case 3: std::cout << "returning C " << std::endl ; instance = new C; break;
+		case 2: std::cout << "returning C " << std::endl ; instance = new C; break;
 	}
 	return instance;
 }
