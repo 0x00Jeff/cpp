@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Array.hpp"
+#include <Array.hpp>
 
 #define MAX_VAL 750
 int main(int, char**)
@@ -13,13 +13,11 @@ int main(int, char**)
         numbers[i] = value;
         mirror[i] = value;
     }
-	/*
     //SCOPE
     {
         Array<int> tmp = numbers;
         Array<int> test(tmp);
     }
-	*/
 
     for (int i = 0; i < MAX_VAL; i++)
     {
@@ -29,7 +27,6 @@ int main(int, char**)
             return 1;
         }
     }
-	/*
     try
     {
         numbers[-2] = 0;
@@ -52,6 +49,5 @@ int main(int, char**)
         numbers[i] = rand();
     }
     delete [] mirror;//
-	*/
     return 0;
 }
