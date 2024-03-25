@@ -13,6 +13,7 @@ class Array
 		Array( Array const & src );
 		Array & operator=( Array const &);
 		T& operator[](unsigned int i);
+		T const & operator[](unsigned int i) const;
 
 		// class template functionalities
 		size_t const & size() const;
@@ -42,8 +43,16 @@ Array<T>::Array( unsigned int n )
 template <typename T>
 T& Array<T>::operator[](unsigned int i)
 {
-	if (i < 0 || i > (this -> _size))
-		throw std::out_of_range("lel");
+	if (i < 0 || i >= (this -> _size))
+		throw std::out_of_range("index out of range!");
+	return (this -> _arr[i]);
+}
+
+template <typename T>
+T const & Array<T>::operator[](unsigned int i) const
+{
+	if (i < 0 || i >= (this -> _size))
+		throw std::out_of_range("index out of range!");
 	return (this -> _arr[i]);
 }
 
@@ -53,15 +62,14 @@ size_t const & Array<T>::size() const
 	return (this -> _size);
 }
 
-/* TODO 
 template <typename T>
-std::ostream& Array<T>::operator<<(std::ostream& os, const Array<T>& arr)
+std::ostream& operator<<(std::ostream& os, const Array<T>& arr)
 {
 	size_t i;
-	for(i = 0; i < arr._size; i++)
-		std::cout << "arr[" << i << "] = " << this -> _arr[i] << std::endl;
+	for(i = 0; i < arr.size(); i++)
+		os << "arr[" << i << "] = " << arr[i] << std::endl;
+	return os;
 }
-*/
 
 template <typename T>
 Array<T>::~Array( void )
