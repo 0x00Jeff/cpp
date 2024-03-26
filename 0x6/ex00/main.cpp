@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 
 	input = argv[1];
 
-	try 
+	try
 	{
 		ScalarConverter::typeDetector(input, t);
 	}

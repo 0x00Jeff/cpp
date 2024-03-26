@@ -4,7 +4,7 @@ CXXFLAGS=-Wall -Wextra -Werror -std=c++98 -I.
 
 NAME = T
 
-SRC = main.cpp Array.cpp
+SRC = main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
