@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:19:12 by afatimi           #+#    #+#             */
-/*   Updated: 2024/04/02 15:11:54 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:20:03 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,12 @@ int Span::shortestSpan( void ) // TODO : what if size <= 1 , ask youssef!
 {
 	int smol_span = INT_MAX;
 
-	std::vector<int> v = this -> v;
+	std::vector<int> &v = this -> v;
 	if (!this -> sorted)
+	{
 		sort(v.begin(), v.end(), std::greater<int>());;
+		this -> sorted = true;
+	}
 	std::vector<int>::iterator it = v.begin();
 	std::vector<int>::iterator ite = v.end();
 
@@ -81,10 +84,14 @@ int Span::shortestSpan( void ) // TODO : what if size <= 1 , ask youssef!
 
 int Span::longestSpan( void ) // TODO : what if size <= 1 , ask youssef!
 {
-	// TODO : ask youssef wtf is going on here
-	std::vector<int> v = this -> v;
+	std::vector<int> &v = this -> v;
+
 	if (!this -> sorted)
-		sort(v.begin(), v.end(), std::greater<int>());;
+	{
+		sort(v.begin(), v.end(), std::greater<int>());
+		this -> sorted = true;
+	}
+
 	std::vector<int>::iterator it = v.begin();
 	std::vector<int>::iterator ite = v.end();
 	return (*it - *--ite);
