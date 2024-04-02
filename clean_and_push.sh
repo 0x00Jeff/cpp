@@ -10,13 +10,13 @@ for i in 0x0/ex00 0x0/ex01 \
 	0x5/ex00 0x5/ex01 0x5/ex02 0x5/ex03 \
 	0x6/ex00 0x6/ex01 0x6/ex02 \
 	0x7/ex00 0x7/ex01 0x7/ex02 \
-	0x8/ex00
+	0x8/ex00 0x8/ex01
 do
 	make -C $i fclean  &
 done
+
 find . \( -name "a.out" \) -delete &
 find . \( -name "*.o" \) -delete &
-
 wait
 
 if [ $# != 1 ]
