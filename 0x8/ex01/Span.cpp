@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/02 14:19:12 by afatimi           #+#    #+#             */
-/*   Updated: 2024/04/02 15:20:03 by afatimi          ###   ########.fr       */
+/*   Created: 2024/04/03 01:14:08 by afatimi           #+#    #+#             */
+/*   Updated: 2024/04/03 01:27:41 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,17 @@ void Span::addNumber(unsigned int number)
 	this -> sorted = false;
 }
 
-int Span::shortestSpan( void ) // TODO : what if size <= 1 , ask youssef!
+void addNumber( std::vector<int>::iterator it, std::vector<int>::iterator ite )
 {
+	(void)it;
+	(void)ite;
+	// TODO : impl
+}
+
+int Span::shortestSpan( void )
+{
+	if (this -> size < 2)
+		throw Span_Has_Less_Then_Two_Elements();
 	int smol_span = INT_MAX;
 
 	std::vector<int> &v = this -> v;
@@ -82,8 +91,10 @@ int Span::shortestSpan( void ) // TODO : what if size <= 1 , ask youssef!
 	return (smol_span);
 }
 
-int Span::longestSpan( void ) // TODO : what if size <= 1 , ask youssef!
+int Span::longestSpan( void )
 {
+	if (this -> size < 2)
+		throw Span_Has_Less_Then_Two_Elements();
 	std::vector<int> &v = this -> v;
 
 	if (!this -> sorted)
@@ -101,6 +112,11 @@ int Span::longestSpan( void ) // TODO : what if size <= 1 , ask youssef!
 const char *Span::Span_Is_Full::what() const throw()
 {
 	return "Span is full!";
+}
+
+const char *Span::Span_Has_Less_Then_Two_Elements::what() const throw()
+{
+	return "Span has less than two elements!";
 }
 
 Span::~Span( void )

@@ -27,8 +27,16 @@ int main(void)
 	std::cout << std::endl;
 	*/
 
+	try 
+	{
 		std::cout << sp.shortestSpan() << std::endl;
 		std::cout << sp.longestSpan() << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+		return (-1);
+	}
 
 	/*
 	v = sp.getVect();
