@@ -6,7 +6,7 @@
 /*   By: afatimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:14:08 by afatimi           #+#    #+#             */
-/*   Updated: 2024/04/03 01:27:41 by afatimi          ###   ########.fr       */
+/*   Updated: 2024/04/03 01:38:23 by afatimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 Span::Span(){}
 
-Span::Span( const unsigned int n ) : size(0), capacity(n), sorted(true)
+Span::Span( const unsigned int n ) : size(0), capacity(n), sorted(false)
 {
 	std::cout << "created a vector with size == " << n << std::endl;
 }
@@ -60,11 +60,15 @@ void Span::addNumber(unsigned int number)
 	this -> sorted = false;
 }
 
-void addNumber( std::vector<int>::iterator it, std::vector<int>::iterator ite )
+void Span::addNumber( std::vector<int>::iterator it, std::vector<int>::iterator ite )
 {
-	(void)it;
-	(void)ite;
-	// TODO : impl
+	size_t distance = std::distance(it, ite);
+	std::cout << "dist is : " << distance << std::endl;
+	if (this -> size + distance > this -> capacity)
+		throw Span_Is_Full(); // TODO : might change this name!
+	v.insert(v.end(), it, ite);
+	this -> size += distance;
+	this -> sorted = false;
 }
 
 int Span::shortestSpan( void )
