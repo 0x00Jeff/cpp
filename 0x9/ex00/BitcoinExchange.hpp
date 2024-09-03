@@ -5,6 +5,8 @@
 #include<sstream>
 #include<string>
 #include<vector>
+#include<iomanip>
+#include<cstdlib>
 
 using std::string;
 using std::vector;
@@ -17,6 +19,17 @@ using std::endl;
 using std::ifstream;
 using std::stringstream;
 
+using std::atoi;
+using std::setprecision;
+
+struct btcEntry
+{
+	float price;
+	int year;
+	int month;
+	int day;
+};
+
 class BitcoinExchange
 {
 	private:
@@ -26,17 +39,33 @@ class BitcoinExchange
 		BitcoinExchange &operator=(BitcoinExchange &ref);
 
 		// static members
-		static string dbName;
-		static vector<string> splitBySpace(string blob);
+		static string btcDbName;
+		static string btcDbHeader;
+		static string inputFileHeader;
+
+		static vector<string> splitTokensByChar(string &blob, char c);
+		static vector<string> splitTokensBySpace(string &blob);
+
+		static void openFile(ifstream &databaseStream, string &dbName);
+		static void checkFileHeader(ifstream &databaseStream, string &fileHeader);
+		static bool isValidBtcEntry(string &btcEntry);
+		static bool isValidInputEntry(string &btcEntry);
+		static bool isValidDate(string &dateToken);
+		static bool isValidPrice(string &priceToken);
+		static bool isValidFloat(string &priceToken);
+		static bool isValidUnit(string &unitToken);
 
 		// class attributes
-		map<int, float> db;
+		map<string, float> btcDb;
 
 		// class methods
 		void registerBitcoinValues(void);
-		void openDb(ifstream &databaseStream, string dbName);
-		void registerBitcoinValuesEntries(ifstream &databaseStream);
-		void checkDbHeader(ifstream &databaseStream);
+		void parseBtcEntries(ifstream &databaseStream, vector<btcEntry> &btcEntries);
+		void registerBitcoinPriceEntry(string btcEntry);
+
+		void displayResults(string inputFile);
+		void displayResult(string inputEntry);
+
 
 		// exceptions
 		class cannotOpenBitcoinDatabase : public std::exception
@@ -49,12 +78,32 @@ class BitcoinExchange
 			virtual const char *what() const throw();
 		};
 
-		class badBtcDbHeader : public std::exception
+		class badFileHeader : public std::exception
 		{
 			virtual const char *what() const throw();
 		};
 
 		class noUsefulBtcData : public std::exception
+		{
+			virtual const char *what() const throw();
+		};
+
+		class invalidBtcEntry : public std::exception
+		{
+			virtual const char *what() const throw();
+		};
+
+		class btcEntryAlreadyExists : public std::exception
+		{
+			virtual const char *what() const throw();
+		};
+
+		class invalidInputEntry : public std::exception
+		{
+			virtual const char *what() const throw();
+		};
+
+		class nigativeUnit : public std::exception
 		{
 			virtual const char *what() const throw();
 		};
