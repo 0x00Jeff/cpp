@@ -211,19 +211,21 @@ void BitcoinExchange::displayResult(string inputEntry)
 	string date = inputEntryParts[0];
 	float units;
 
-	stringstream unitsStream;(inputEntryParts[1]);
+	stringstream unitsStream(inputEntryParts[1]);
 	unitsStream >> units;
 
-
 	map<string, float>::iterator it = btcDb.upper_bound(date);
-	cout << "searching for : " << date << endl;
-	cout.setf(std::ios::fixed, std::ios::floatfield);
-	//cout << it -> first << " => " << units << std::fixed << setprecision(2) << units * it -> second << endl;
-	cout << it -> first << " => " << units << units * it -> second << endl;
-//	if (btcDb.find(date) != btcDb.end())
-//		cout << date << " => " << units << int(units * btcDb[date]) << endl;
-//	else
-//		cerr << "lower still not implemented hh" << endl;
+	if (it != btcDb.begin())
+		it--;
+
+	float price = it -> second;
+
+	cout << endl << "searching for : " << date << endl;
+	cout << "date : " << it -> first << endl;
+	cout << "price: " << price << endl;
+	cout << "units: " << units << endl;
+
+	cout << it -> first << " => " << units << std::fixed << setprecision(1) << units * price << endl;
 }
 
 // class methods
@@ -274,7 +276,6 @@ void BitcoinExchange::registerBitcoinPriceEntry(string btcEntry)
 	if (btcDb.find(date) != btcDb.end())
 		throw BitcoinExchange::btcEntryAlreadyExists();
 
-	cout << "inserting <" << price << "> as price into " << date << endl;
 	btcDb[date] = price;
 }
 
