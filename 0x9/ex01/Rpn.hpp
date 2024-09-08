@@ -3,6 +3,7 @@
 #include<iostream>
 #include<stack>
 
+using std::string;
 using std::stack;
 
 using std::ifstream;
@@ -23,19 +24,28 @@ class Rpn
 		stack<int> s;
 
 		// exceptions
-		class emptyStack : public std::exception
+		class Error : public std::exception
 		{
 			virtual const char *what() const throw();
 		};
 
+		// static functions
+		static int isNumber(char c);
+
 		// private class funcationalities
+		void parseNotation(string &notation);
+		void checkAndPush(string &notationElem);
+		int exec_opcode(char opcode);
+		
+		void push_rsp(int data);
 		int pop_rsp(void);
 
 	public:
 		// constructors
-		Rpn();
+		Rpn(string &notation);
 
 		// public class funcationalities
+		int getResult();
 
 		// destructor
 		~Rpn();
