@@ -4,6 +4,41 @@
 Rpn::Rpn(string &notation)
 {
 	compileRpnNotation(validateRpnNotation(notation));
+	displayCompiledCode();
+}
+
+void Rpn::displayCompiledCode()
+{
+	vector<char>::iterator opIt = s.opcodes.begin();
+	vector<char>::iterator opIte = s.opcodes.end();
+
+	for(; opIt != opIte; opIt++)
+	{
+	//	cout << *opIt << " " << endl;
+		displayOperation(opIt);
+	}
+}
+
+void Rpn::displayOperation(vector<char>::iterator &opIt)
+{
+	static bool first = true;
+//	cout << "operation = " << *opIt << endl;
+//	cout << "operation = " << GET_OP(*opIt) << endl;
+	switch(GET_OP(*opIt))
+	{
+		case ADD_OPCODE: cout << "ADD "; break;
+		case SUB_OPCODE: cout << "SUB "; break;
+		case MUL_OPCODE: cout << "MUL "; break;
+		case DIV_OPCODE: cout << "DIV "; break;
+	}
+	if (first)
+	{
+		cout << *(++opIt) << " ";
+		cout << *(++opIt) << endl;
+		first = false;
+	}
+	else
+		cout << *(++opIt) << endl;
 }
 
 const char *Rpn::Error::what() const throw()
@@ -70,7 +105,7 @@ vector<string> Rpn::validateRpnNotation(string &notation)
 		}
 
 		byte = (*it)[0];
-		cout << "byte = " << byte << endl;
+//		cout << "[DEBUG] byte = " << byte << endl;
 
 		if (isValidOperand(byte))
 				operandsCount++;
@@ -111,21 +146,31 @@ void Rpn::compileRpnNotation(vector<string> tokens)
 	while(it != ite)
 	{
 		char byte = (*it)[0];
+		char tmpByte;
 
 		if (isValidOpcode(byte))
 		{
-			cerr << "[DEBUG] found valid opcode <" << byte << ">" << endl;
 			if (firstOpcode)
 			{
-				appendOpcodeToByteCode(byte, firstOpcode);
-				appendOperandToByteCode((*getNextOperand(tokens))[0]);
-				appendOperandToByteCode((*getNextOperand(tokens))[0]);
+				cerr << "[DEBUG] [COMPILE] [OPCODE] appending <" << byte << ">, firstOpcode = " << firstOpcode << endl;
+				appendOperationToByteCode(byte, firstOpcode);
+				
+				tmpByte = (*getNextOperand(tokens))[0];
+				cerr << "[DEBUG] [COMPILE] [OPERAND] appending <" << tmpByte << "> to bytecode" << endl;
+				appendOperandToByteCode(tmpByte);
+
+				tmpByte = (*getNextOperand(tokens))[0];
+				cerr << "[DEBUG] [COMPILE] [OPERAND] appending <" << tmpByte << "> to bytecode" << endl << endl;
+				appendOperandToByteCode(tmpByte);
 				firstOpcode = false;
 			}
 			else
 			{
-				appendOpcodeToByteCode(byte, firstOpcode);
-				appendOperandToByteCode((*getNextOperand(tokens))[0]);
+				cerr << "[DEBUG] [COMPILE] [OPCODE] appending <" << byte << ">, firstOpcode = " << firstOpcode << endl;
+				appendOperationToByteCode(byte, firstOpcode);
+				tmpByte = (*getNextOperand(tokens))[0];
+				cerr << "[DEBUG] [COMPILE] [OPERAND] appending <" << tmpByte << "> " << endl << endl;
+				appendOperandToByteCode(tmpByte);
 			}
 		}
 		it++;
@@ -134,13 +179,13 @@ void Rpn::compileRpnNotation(vector<string> tokens)
 
 vector<string>::iterator Rpn::getNextOperand(vector<string> &opcodes)
 {
-	static vector<string>::iterator it;
+	static vector<string>::iterator it = opcodes.end();
 	static vector<string>::iterator ite;
 	vector<string>::iterator nextOperand = opcodes.end();
 
 	int byte;
 
-	if (it != opcodes.begin())
+	if (it == opcodes.end())
 		it = opcodes.begin();
 
 	if (ite != opcodes.end())
@@ -152,7 +197,6 @@ vector<string>::iterator Rpn::getNextOperand(vector<string> &opcodes)
 		it++;
 		if (isValidOperand(byte))
 		{
-			cerr << "[DEBUG] found valid operand <" << byte << ">" << endl;
 			nextOperand = it - 1;
 			break;
 		}
@@ -175,7 +219,7 @@ void Rpn::checkAndPush(string &elem)
 	switch (elemChar)
 	{
 		case '*':
-		case '/':
+		case '/'
 		case '-':
 		case '+':
 			push_rsp(exec_opcode(elemChar));
@@ -212,13 +256,12 @@ int Rpn::exec_opcode(char opcode)
 // push operations
 void Rpn::appendOperationToByteCode(char operation, bool firstOperation)
 {
-	cerr << "[DEBUG] adding operation <" << operation << "> with firstOperation = " << firstOperation << endl;
 	switch(operation)
 	{
-		case ADD_OPERATION: appendOpcodeToByteCode(ADD, firstOperation); break;
-		case SUB_OPERATION: appendOpcodeToByteCode(SUB, firstOperation); break;
-		case MUL_OPERATION: appendOpcodeToByteCode(MUL, firstOperation); break;
-		case DIV_OPERATION: appendOpcodeToByteCode(DIV, firstOperation); break;
+		case ADD_OPERATION: appendOpcodeToByteCode(ADD_OPCODE, firstOperation); break;
+		case SUB_OPERATION: appendOpcodeToByteCode(SUB_OPCODE, firstOperation); break;
+		case MUL_OPERATION: appendOpcodeToByteCode(MUL_OPCODE, firstOperation); break;
+		case DIV_OPERATION: appendOpcodeToByteCode(DIV_OPCODE, firstOperation); break;
 		default:
 			cerr << "[DEBUG] problem in current operation <" << operation << ">" << endl;
 			throw Rpn::Error();
@@ -233,7 +276,8 @@ void Rpn::appendOperandToByteCode(char data)
 void Rpn::appendOpcodeToByteCode(char opcode, bool firstOpcode)
 {
 	if (firstOpcode)
-		opcode = FIRST_OPCODE(opcode);
+		opcode = MAKE_FIRST_OPCODE(opcode);
+
 	appendByteToByteCode(opcode);
 }
 

@@ -3,6 +3,7 @@
 #include<iostream>
 #include<stack>
 #include<vector>
+#include<cstdlib>
 
 using std::string;
 using std::vector;
@@ -15,21 +16,19 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-#define FIRST_OPCODE(x) (x | (1 << 4))
+using std::atoi;
+
+#define MAKE_FIRST_OPCODE(x) (x | (1 << 4))
 #define IS_FIRST_OPCODE(x) (x >> 4)
 #define GET_OP(x) (x & 7)
 
 enum BYTECODE
 {
-	FIRST_ADD,
-	FIRST_SUB,
-	FIRST_MUL,
-	FIRST_DIV,
-	ADD,
-	SUB,
-	MUL,
-	DIV,
-	STOP
+	ADD_OPCODE = 0,
+	SUB_OPCODE,
+	MUL_OPCODE,
+	DIV_OPCODE,
+	STOP_OPCODE
 };
 
 enum OPERATIONS
@@ -37,10 +36,10 @@ enum OPERATIONS
 	ADD_OPERATION = '+',
 	SUB_OPERATION = '-',
 	MUL_OPERATION = '*',
-	DIV_OPERATION = '/',
+	DIV_OPERATION = '/'
 };
 
-struct state 
+struct state
 {
 	vector<char> opcodes;
 	stack<int> stack;
@@ -71,7 +70,8 @@ class Rpn
 		// private class funcationalities
 		vector<string> validateRpnNotation(string &notation);
 		void compileRpnNotation(vector<string> tokens);
-		
+		void displayCompiledCode();
+		void displayOperation(vector<char>::iterator &opIt);
 
 		// bytecode operations
 		void appendToByteCode(char data);
