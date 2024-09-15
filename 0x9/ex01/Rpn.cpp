@@ -5,7 +5,7 @@ Rpn::Rpn(string &notation)
 {
 	compileRpnNotation(validateRpnNotation(notation));
 	displayCompiledCode();
-	executeCompiledCode();
+	//executeCompiledCode();
 }
 
 void Rpn::displayCompiledCode()
@@ -13,31 +13,20 @@ void Rpn::displayCompiledCode()
 	vector<char>::iterator opIt = s.opcodes.begin();
 	vector<char>::iterator opIte = s.opcodes.end();
 
-	for(; opIt != opIte; opIt++)
-	{
-	//	cout << *opIt << " " << endl;
+	for(; opIt < opIte; opIt++)
 		displayOperation(opIt);
-	}
 }
 
 void Rpn::displayOperation(vector<char>::iterator &opIt)
 {
-	static bool first = true;
-	switch(GET_OP(*opIt))
+	switch(*opIt)
 	{
 		case ADD_OPCODE: cout << "ADD "; break;
 		case SUB_OPCODE: cout << "SUB "; break;
 		case MUL_OPCODE: cout << "MUL "; break;
 		case DIV_OPCODE: cout << "DIV "; break;
 	}
-	if (first)
-	{
-		cout << *(++opIt) << " ";
-		cout << *(++opIt) << endl;
-		first = false;
-	}
-	else
-		cout << *(++opIt) << endl;
+	cout << *(++opIt) << endl;
 }
 
 void Rpn::executeCompiledCode()
@@ -54,15 +43,9 @@ void Rpn::execSingleOpcode(vector<char>::iterator &opIt)
 	char opcode = *opIt;
 	int arg1, arg2;
 
-	if (IS_FIRST_OPCODE(opcode))
-	{
-		// TODO : ask ysf how to refractor this garbage;
-		string tmpArg(1, *(++opIt));
-		arg1 = atoi(tmpArg.c_str());
-	}
-	else 
-		arg1 = pop_rsp();
 
+	arg1 = s.accumulator;
+	// TODO : ask ysf how to refractor this garbage;
 	string tmpArg(1, *(++opIt));
 	arg2 = atoi(tmpArg.c_str());
 
@@ -70,22 +53,22 @@ void Rpn::execSingleOpcode(vector<char>::iterator &opIt)
 	cerr << "[DEBUG] [EXEC] [ARG2] " << arg2 << endl;
 
 	cerr << "[DEBUG] [EXEC] ";
-	switch(GET_OP(opcode))
+	switch(opcode)
 	{
-		case ADD_OPCODE: 
+		case ADD_OPCODE:
 			cerr << "[ADD] ";
-			push_rsp(arg1 + arg2); break;
+			s.accumulator = arg1 + arg2; break;
 		case SUB_OPCODE:
 			cerr << "[SUB] ";
-			push_rsp(arg2 - arg1); break;
-		case MUL_OPCODE: 
+			s.accumulator = arg1 - arg2; break;
+		case MUL_OPCODE:
 			cerr << "[MUL] ";
-			push_rsp(arg1 * arg2); break;
+			s.accumulator = arg1 * arg2; break;
 		case DIV_OPCODE:
 			cerr << "[DIV] ";
-			  if (!arg2)
-				  throw Rpn::Error();
-			  push_rsp(arg1 / arg2);
+				if (!arg2)
+					throw Rpn::Error();
+				s.accumulator = arg1 / arg2; break;
 	}
 }
 
@@ -127,7 +110,7 @@ int Rpn::isValidOperand(char c)
 	return isNumber(c);
 }
 
-int Rpn::isValidOpcode(char op)
+int Rpn::isValidOperation(char op)
 {
 	return (op == ADD_OPERATION \
 			|| op == SUB_OPERATION\
@@ -178,7 +161,7 @@ vector<string> Rpn::validateRpnNotation(string &notation)
 
 		if (isValidOperand(byte))
 				operandsCount++;
-		else if(isValidOpcode(byte))
+		else if(isValidOperation(byte))
 		{
 			if (operandsCount < 2)
 			{
@@ -205,96 +188,110 @@ vector<string> Rpn::validateRpnNotation(string &notation)
 	return tokens;
 }
 
-void Rpn::compileRpnNotation(vector<string> tokens)
+char Rpn::getNextOperation(vector<string> &tokens, vector<string>::iterator &opIt)
 {
-	vector<string>::iterator it = tokens.begin();
+	char operation;
 
-	bool firstOpcode = true;
+	while(opIt != tokens.end() && !isValidOperation((*opIt)[0]))
+		opIt++;
 
-	while(it != tokens.end())
+	if(opIt == tokens.end())
 	{
-		char byte = (*it)[0];
-		char tmpByte;
-
-		printIteratorGroup(tokens, it);
-
-		if (isValidOpcode(byte))
-		{
-			if (firstOpcode)
-			{
-				cerr << "[DEBUG] [COMPILE] [OPCODE] appending <" << byte << ">, firstOpcode = " << firstOpcode << endl;
-				appendOperationToByteCode(byte, firstOpcode);
-				// erase the operator
-				cerr << "[DEBUG] [COMPILE] [OPCODE] [ERASE] erasing <" << *it << ">, firstOpcode = " << firstOpcode << endl;
-				it = tokens.erase(it);
-
-				
-				cerr << "[DEBUG] -> [NextOP]" << endl;
-				tmpByte = (getNextOperand(tokens, it));
-				cerr << "[DEBUG] [COMPILE] [OPERAND] appending <" << tmpByte << "> to bytecode" << endl;
-				appendOperandToByteCode(tmpByte);
-
-				tmpByte = (getNextOperand(tokens, it));
-				cerr << "[DEBUG] [COMPILE] [OPERAND] appending <" << tmpByte << "> to bytecode" << endl << endl;
-				appendOperandToByteCode(tmpByte);
-				firstOpcode = false;
-	//			it = tokens.erase(it);
-			}
-			else
-			{
-				cerr << "[DEBUG] [COMPILE] [OPCODE] appending <" << byte << ">, firstOpcode = " << firstOpcode << endl;
-				appendOperationToByteCode(byte, firstOpcode);
-				tmpByte = getNextOperand(tokens, it);
-				cerr << "[DEBUG] [COMPILE] [OPERAND] appending <" << tmpByte << "> " << endl << endl;
-				appendOperandToByteCode(tmpByte);
-			}
-		}
-		else 
-			it++;
+		cerr << "getNextOperation issue nigga" << endl;
+		exit(69);
 	}
-	appendOperandToByteCode(STOP_OPCODE);
+
+	operation = (*opIt)[0];
+	opIt = tokens.erase(opIt);
+
+	return operation;
 }
 
-char Rpn::getNextOperand(vector<string> &opcodes, vector<string>::iterator &currOpcodeIt)
+void Rpn::pushFirstOperand(vector<string> &tokens, vector<string>::iterator &opIt)
+{
+	s.accumulator = getNextOperand(tokens, opIt);
+}
+
+char Rpn::getNextOperand(vector<string> &tokens, vector<string>::iterator &opIt)
 {
 	char operand;
-	currOpcodeIt--;
-	while(!isValidOperand((*currOpcodeIt)[0]))
-		currOpcodeIt--;
 
-	operand = (*currOpcodeIt)[0];
-	cerr << "[DEBUG] [COMPILE] [GETNEXTOPCODE] [ERASE] erasing <" << operand << ">" << endl << endl;
-	currOpcodeIt = opcodes.erase(currOpcodeIt);
+	opIt--;
+
+	if(opIt == tokens.end())
+	{
+		cerr << "getNextOperand issue nigga" << endl;
+		exit(69);
+	}
+
+	operand = (*opIt)[0];
+	opIt = tokens.erase(opIt);
 
 	return operand;
 }
 
-// push operations
-void Rpn::appendOperationToByteCode(char operation, bool firstOperation)
+void Rpn::compileRpnNotation(vector<string> tokens)
 {
+
+	//vector<string>::iterator it = tokens.begin()
+	vector<string>::iterator opIt = tokens.begin();
+	char operand;
+	char operation;
+
+	cout << " before special case : tokens.size() = " << tokens.size() << endl;
+	pushFirstOperand(tokens, opIt);
+	cout << "pushed operand = " << s.accumulator << endl;
+	cout << " after special case : tokens.size() = " << tokens.size() << endl;
+	s.accumulator = getNextOperand(tokens, opIt);
+	while(tokens.size())
+	{
+		// find operation, erase it, and return its byte
+		// and update opIt internally, so we can use it later
+		// in getNextOperand
+		operation = getNextOperation(tokens, opIt);
+		appendOpcodeToByteCode(operation);
+
+		cout << "found operation = " << operation << endl;
+
+		// find operation, erase it, and return its byte
+		// and update opIt internally, so we can use it later
+		// in getNextOperation
+		operand = getNextOperand(tokens, opIt);
+		cout << "found operand = " << operand << endl;
+		appendOperandToByteCode(operation);
+
+		cout << "tokens.size() = " << tokens.size() << endl;
+	}
+	appendOperandToByteCode(STOP_OPCODE);
+}
+
+
+
+// push operations
+void Rpn::appendOperationToByteCode(char operation)
+{
+	// TODO : do we even need this switch any more??
 	switch(operation)
 	{
-		case ADD_OPERATION: appendOpcodeToByteCode(ADD_OPCODE, firstOperation); break;
-		case SUB_OPERATION: appendOpcodeToByteCode(SUB_OPCODE, firstOperation); break;
-		case MUL_OPERATION: appendOpcodeToByteCode(MUL_OPCODE, firstOperation); break;
-		case DIV_OPERATION: appendOpcodeToByteCode(DIV_OPCODE, firstOperation); break;
+		case ADD_OPERATION: appendOpcodeToByteCode(ADD_OPCODE); break;
+		case SUB_OPERATION: appendOpcodeToByteCode(SUB_OPCODE); break;
+		case MUL_OPERATION: appendOpcodeToByteCode(MUL_OPCODE); break;
+		case DIV_OPERATION: appendOpcodeToByteCode(DIV_OPCODE); break;
 		default:
 			cerr << "[DEBUG] problem in current operation <" << operation << ">" << endl;
 			throw Rpn::Error();
 	}
 }
 
+void Rpn::appendOpcodeToByteCode(int opcode)
+{
+	appendByteToByteCode(opcode);
+}
+
+// unlike appendOpcodeToByteCode, this functions expects ascii representations of the operands
 void Rpn::appendOperandToByteCode(char data)
 {
 	appendByteToByteCode(data);
-}
-
-void Rpn::appendOpcodeToByteCode(char opcode, bool firstOpcode)
-{
-	if (firstOpcode)
-		opcode = MAKE_FIRST_OPCODE(opcode);
-
-	appendByteToByteCode(opcode);
 }
 
 void Rpn::appendByteToByteCode(char byte)
@@ -302,31 +299,9 @@ void Rpn::appendByteToByteCode(char byte)
 	s.opcodes.push_back(byte);
 }
 
-
-int Rpn::pop_rsp(void)
-{
-	int stackTop;
-	if (!s.stack.size())
-		throw Rpn::Error();
-
-	stackTop = s.stack.top();
-	s.stack.pop();
-	s.rip++;
-	cerr << "[DEBUG] [STACK] [POP] " << stackTop << endl;
-	return stackTop;
-}
-
-void Rpn::push_rsp(int data)
-{
-	cerr << "[PUSH] " << data << endl << endl;
-	s.stack.push(data);
-}
-
 int Rpn::getResult()
 {
-	if (s.stack.size() != 1)
-		throw Rpn::Error();
-	return pop_rsp();
+	return s.accumulator;
 }
 
 // destructor

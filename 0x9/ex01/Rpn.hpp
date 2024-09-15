@@ -18,9 +18,11 @@ using std::endl;
 
 using std::atoi;
 
+/*
 #define MAKE_FIRST_OPCODE(x) (x | (1 << 4))
 #define IS_FIRST_OPCODE(x) (x >> 4)
 #define GET_OP(x) (x & 7)
+*/
 
 enum BYTECODE
 {
@@ -41,8 +43,8 @@ enum OPERATIONS
 
 struct state
 {
+	ssize_t accumulator;
 	vector<char> opcodes;
-	stack<int> stack;
 	size_t rip;
 };
 
@@ -64,7 +66,7 @@ class Rpn
 		// static functions
 		static int isNumber(char c);
 		static int isValidOperand(char c);
-		static int isValidOpcode(char c);
+		static int isValidOperation(char c);
 		static vector<string> splitTokensBySpace(string &tokens);
 
 		// private class funcationalities
@@ -86,20 +88,20 @@ class Rpn
 		// bytecode operations
 		void appendToByteCode(char data);
 
-		// stack operations
+
+		// compilation helpers
+		char getNextOperation(vector<string> &tokens, vector<string>::iterator &opIt);
+		char getNextOperand(vector<string> &tokens, vector<string>::iterator &opIt);
+		void pushFirstOperand(vector<string> &tokens, vector<string>::iterator &opIt);
+
+		// stack operations // TODO : lol we don't have a stack anymore
 		void appendByteToByteCode(char byte);
-		void appendOperationToByteCode(char operation, bool firstOperation);
-		void appendOpcodeToByteCode(char opcode, bool firstOpcode);
+		void appendOperationToByteCode(char operation);
+		void appendOpcodeToByteCode(int opcode);
 		void appendOperandToByteCode(char data);
-		void pushOpcode(char data);
-		void pushOperand(char data);
-		char getNextOperand(vector<string> &opcodes, vector<string>::iterator &currOpcodeIt);
 
-		//
-		void pushData(char data);
-
-		void push_rsp(int data);
-		int pop_rsp(void);
+	//	void push_rsp(int data);
+	//	int pop_rsp(void);
 
 	public:
 		// constructors
