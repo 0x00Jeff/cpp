@@ -1,4 +1,5 @@
 #include<iostream>
+#include<ctime>
 #include<exception>
 #include<sstream>
 #include<vector>
@@ -41,19 +42,18 @@ class PmergeMe
 
 		// class functionalities
 		void parseInput(string input);
-		void recursiveSort(vector<int> &c, size_t start, size_t size, int iter);
-		void mergeSort(vector<int> &c, size_t start1, size_t size1, size_t start2, size_t size2);
-		void binaryInsertionSort(vector<int> &c, size_t start, size_t size);
+
+		template <typename CONTAINER>
+		void binaryInsertionSort(CONTAINER &c, size_t start, size_t size);
+
+		template <typename CONTAINER>
+		void mergeSort(CONTAINER &c, size_t start1, size_t size1, size_t start2, size_t size2);
+
+		template <typename CONTAINER>
+		void recursiveSort(CONTAINER &c, size_t start, size_t size, int iter);
 
 		template <typename Container>
 		void displayContainerContent(Container &c);
-
-//		template <class Container>
-//		void splitInputIntoPairs(Container c);
-
-//		template <typename Container>
-//		void displayPairContainerContent(Container &c);
-
 
 	public:
 		// constructor
