@@ -26,19 +26,11 @@ class PmergeMe
 
 		deque<int> inputDeq;
 
-		//int leftOver;
-
 		// exceptions
 		class invalidNumber : public std::exception
 		{
 			virtual const char *what() const throw();
 		};
-
-
-		// static methods
-		template <typename Container>
-		int pop(Container c);
-
 
 		// class functionalities
 		void parseInput(string input);
@@ -52,8 +44,8 @@ class PmergeMe
 		template <typename CONTAINER>
 		void recursiveSort(CONTAINER &c, size_t start, size_t size, int iter);
 
-		template <typename Container>
-		void displayContainerContent(Container &c);
+		template <typename CONTAINER>
+		void displayContainerContent(CONTAINER &c);
 
 	public:
 		// constructor

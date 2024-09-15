@@ -252,6 +252,7 @@ void Rpn::compileRpnNotation(vector<string> tokens)
 		else 
 			it++;
 	}
+	appendOperandToByteCode(STOP_OPCODE);
 }
 
 char Rpn::getNextOperand(vector<string> &opcodes, vector<string>::iterator &currOpcodeIt)

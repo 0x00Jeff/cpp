@@ -10,13 +10,13 @@ void PmergeMe::sort()
 {
 	clock_t t = clock();
 	recursiveSort(inputVec, 0, inputVec.size(), 0);
-	//displayContainerContent(inputVec);
+	displayContainerContent(inputVec);
 	t = clock() - t;
 	cout << "std::vector took " << ((double)t / 1000) << " ms" << endl;
 	//
 	clock_t t2 = clock();
 	recursiveSort(inputDeq, 0, inputDeq.size(), 0);
-	//displayContainerContent(inputVec);
+	displayContainerContent(inputVec);
 	t2 = clock() - t2;
 	cout << "std::deque took " << ((double)t2 / 1000) << " ms" << endl;
 }
@@ -24,7 +24,7 @@ void PmergeMe::sort()
 template <typename CONTAINER>
 void PmergeMe::recursiveSort(CONTAINER &c, size_t start, size_t size, int iter)
 {
-	if (size > 20)
+	if (size > 25)
 	{
 		size_t newSize = size >> 1;
 		recursiveSort(c, start, newSize, iter + 1);
@@ -124,11 +124,11 @@ void PmergeMe::parseInput(string input)
 		throw PmergeMe::invalidNumber();
 }
 
-template <typename Container>
-void PmergeMe::displayContainerContent(Container &c)
+template <typename CONTAINER>
+void PmergeMe::displayContainerContent(CONTAINER &c)
 {
-	typename Container::iterator it = c.begin();
-	typename Container::iterator ite = c.end();
+	typename CONTAINER::iterator it = c.begin();
+	typename CONTAINER::iterator ite = c.end();
 
 	while(it != ite)
 		cout << *it++ << " ";
