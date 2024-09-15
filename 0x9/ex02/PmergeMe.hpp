@@ -42,6 +42,7 @@ class PmergeMe
 		// class functionalities
 		void parseInput(string input);
 		void recursiveSort(vector<int> &c, size_t start, size_t size, int iter);
+		void mergeSort(vector<int> &c, size_t start1, size_t size1, size_t start2, size_t size2);
 		void binaryInsertionSort(vector<int> &c, size_t start, size_t size);
 
 		template <typename Container>

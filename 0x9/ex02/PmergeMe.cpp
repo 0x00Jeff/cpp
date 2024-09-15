@@ -24,9 +24,43 @@ void PmergeMe::recursiveSort(vector<int> &c, size_t start, size_t size, int iter
 		size_t newSize = size >> 1;
 		recursiveSort(c, start, newSize, iter + 1);
 		recursiveSort(c, start + newSize, newSize + (size % 2), iter + 1);
+		mergeSort(c, start, newSize, start + newSize, newSize + (size % 2));
 	}
 	else
 		binaryInsertionSort(c, start, size);
+}
+
+void PmergeMe::mergeSort(vector<int> &c, size_t start1, size_t size1, size_t start2, size_t size2)
+{
+	vector<int> tmp;
+
+	size_t i1 = 0;
+	size_t i2 = 0;
+	size_t max1 = i1 + size1;
+	size_t max2 = i2 + size2;
+
+	while(i1 < max1 && i2 < max2)
+	{
+		if (c[start1 + i1] < c[start2 + i2])
+			tmp.push_back(c[start1 + i1++]);
+		else
+			tmp.push_back(c[start2 + i2++]);
+	}
+
+	if (i1 != max1)
+		while(i1 < max1)
+				tmp.push_back(c[start1 + i1++]);
+
+	if (i2 != max2)
+		while(i2 < max2)
+				tmp.push_back(c[start2 + i2++]);
+
+	size_t i = 0;
+	while(i < size1 + size2)
+	{
+		c[start1 + i] = tmp[i];
+		i++;
+	}
 }
 
 void PmergeMe::binaryInsertionSort(vector<int> &c, size_t start, size_t size)
