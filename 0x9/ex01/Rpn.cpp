@@ -5,6 +5,7 @@ Rpn::Rpn(string &notation)
 {
 	compileRpnNotation(validateRpnNotation(notation));
 	displayCompiledCode();
+	executeCompiledCode();
 }
 
 void Rpn::displayCompiledCode()
@@ -22,8 +23,6 @@ void Rpn::displayCompiledCode()
 void Rpn::displayOperation(vector<char>::iterator &opIt)
 {
 	static bool first = true;
-//	cout << "operation = " << *opIt << endl;
-//	cout << "operation = " << GET_OP(*opIt) << endl;
 	switch(GET_OP(*opIt))
 	{
 		case ADD_OPCODE: cout << "ADD "; break;
@@ -39,6 +38,77 @@ void Rpn::displayOperation(vector<char>::iterator &opIt)
 	}
 	else
 		cout << *(++opIt) << endl;
+}
+
+void Rpn::executeCompiledCode()
+{
+	vector<char>::iterator opIt = s.opcodes.begin();
+	vector<char>::iterator opIte = s.opcodes.end();
+
+	for(; opIt != opIte; opIt++)
+		execSingleOpcode(opIt);
+}
+
+void Rpn::execSingleOpcode(vector<char>::iterator &opIt)
+{
+	char opcode = *opIt;
+	int arg1, arg2;
+
+	if (IS_FIRST_OPCODE(opcode))
+	{
+		// TODO : ask ysf how to refractor this garbage;
+		string tmpArg(1, *(++opIt));
+		arg1 = atoi(tmpArg.c_str());
+	}
+	else 
+		arg1 = pop_rsp();
+
+	string tmpArg(1, *(++opIt));
+	arg2 = atoi(tmpArg.c_str());
+
+	cerr << "[DEBUG] [EXEC] [ARG1] " << arg1 << endl;
+	cerr << "[DEBUG] [EXEC] [ARG2] " << arg2 << endl;
+
+	cerr << "[DEBUG] [EXEC] ";
+	switch(GET_OP(opcode))
+	{
+		case ADD_OPCODE: 
+			cerr << "[ADD] ";
+			push_rsp(arg1 + arg2); break;
+		case SUB_OPCODE:
+			cerr << "[SUB] ";
+			push_rsp(arg2 - arg1); break;
+		case MUL_OPCODE: 
+			cerr << "[MUL] ";
+			push_rsp(arg1 * arg2); break;
+		case DIV_OPCODE:
+			cerr << "[DIV] ";
+			  if (!arg2)
+				  throw Rpn::Error();
+			  push_rsp(arg1 / arg2);
+	}
+}
+
+// DEBUG
+void Rpn::printIteratorGroup(vector<string> &tokens, vector<string>::iterator &curr)
+{
+	vector<string>::iterator it = tokens.begin();
+	vector<string>::iterator ite = tokens.end();
+
+	cerr << "[DEBUG] [NOTATION] : ";
+	(void)curr;
+
+
+	while(it != ite)
+	{
+		if (it == curr)
+			cout << "<" << *it << "> ";
+		else
+			cout << *it << " ";
+		it++;
+	}
+
+	cout << endl;
 }
 
 const char *Rpn::Error::what() const throw()
@@ -85,7 +155,6 @@ vector<string> Rpn::splitTokensBySpace(string &blob)
 vector<string> Rpn::validateRpnNotation(string &notation)
 {
 	vector<string> tokens = splitTokensBySpace(notation);
-	cout << notation << endl;
 	if (!tokens.size())
 		throw Rpn::Error();
 
@@ -139,14 +208,15 @@ vector<string> Rpn::validateRpnNotation(string &notation)
 void Rpn::compileRpnNotation(vector<string> tokens)
 {
 	vector<string>::iterator it = tokens.begin();
-	vector<string>::iterator ite = tokens.end();
 
 	bool firstOpcode = true;
 
-	while(it != ite)
+	while(it != tokens.end())
 	{
 		char byte = (*it)[0];
 		char tmpByte;
+
+		printIteratorGroup(tokens, it);
 
 		if (isValidOpcode(byte))
 		{
@@ -154,104 +224,49 @@ void Rpn::compileRpnNotation(vector<string> tokens)
 			{
 				cerr << "[DEBUG] [COMPILE] [OPCODE] appending <" << byte << ">, firstOpcode = " << firstOpcode << endl;
 				appendOperationToByteCode(byte, firstOpcode);
+				// erase the operator
+				cerr << "[DEBUG] [COMPILE] [OPCODE] [ERASE] erasing <" << *it << ">, firstOpcode = " << firstOpcode << endl;
+				it = tokens.erase(it);
+
 				
-				tmpByte = (*getNextOperand(tokens))[0];
+				cerr << "[DEBUG] -> [NextOP]" << endl;
+				tmpByte = (getNextOperand(tokens, it));
 				cerr << "[DEBUG] [COMPILE] [OPERAND] appending <" << tmpByte << "> to bytecode" << endl;
 				appendOperandToByteCode(tmpByte);
 
-				tmpByte = (*getNextOperand(tokens))[0];
+				tmpByte = (getNextOperand(tokens, it));
 				cerr << "[DEBUG] [COMPILE] [OPERAND] appending <" << tmpByte << "> to bytecode" << endl << endl;
 				appendOperandToByteCode(tmpByte);
 				firstOpcode = false;
+	//			it = tokens.erase(it);
 			}
 			else
 			{
 				cerr << "[DEBUG] [COMPILE] [OPCODE] appending <" << byte << ">, firstOpcode = " << firstOpcode << endl;
 				appendOperationToByteCode(byte, firstOpcode);
-				tmpByte = (*getNextOperand(tokens))[0];
+				tmpByte = getNextOperand(tokens, it);
 				cerr << "[DEBUG] [COMPILE] [OPERAND] appending <" << tmpByte << "> " << endl << endl;
 				appendOperandToByteCode(tmpByte);
 			}
 		}
-		it++;
+		else 
+			it++;
 	}
 }
 
-vector<string>::iterator Rpn::getNextOperand(vector<string> &opcodes)
+char Rpn::getNextOperand(vector<string> &opcodes, vector<string>::iterator &currOpcodeIt)
 {
-	static vector<string>::iterator it = opcodes.end();
-	static vector<string>::iterator ite;
-	vector<string>::iterator nextOperand = opcodes.end();
+	char operand;
+	currOpcodeIt--;
+	while(!isValidOperand((*currOpcodeIt)[0]))
+		currOpcodeIt--;
 
-	int byte;
+	operand = (*currOpcodeIt)[0];
+	cerr << "[DEBUG] [COMPILE] [GETNEXTOPCODE] [ERASE] erasing <" << operand << ">" << endl << endl;
+	currOpcodeIt = opcodes.erase(currOpcodeIt);
 
-	if (it == opcodes.end())
-		it = opcodes.begin();
-
-	if (ite != opcodes.end())
-		ite = opcodes.end();
-
-	while(it != ite)
-	{
-		byte = (*it)[0];
-		it++;
-		if (isValidOperand(byte))
-		{
-			nextOperand = it - 1;
-			break;
-		}
-	}
-	if (nextOperand == opcodes.end())
-	{
-		cerr << "[DEBUG] if you're seeing this then there is a serious bug in your code xd" << endl;
-		exit(0);
-	}
-	return nextOperand;
+	return operand;
 }
-
-/*
-void Rpn::checkAndPush(string &elem)
-{
-	if (elem.size() > 1)
-		throw Rpn::Error();
-
-	char elemChar = elem[0];
-	switch (elemChar)
-	{
-		case '*':
-		case '/'
-		case '-':
-		case '+':
-			push_rsp(exec_opcode(elemChar));
-			return;
-	}
-
-	if (!isValidOperand(elemChar))
-		throw Rpn::Error();
-	push_rsp(elemChar - '0');
-}
-*/
-
-
-/*
-int Rpn::exec_opcode(char opcode)
-{
-	int arg1 = pop_rsp();
-	int arg2 = pop_rsp();
-	int res;
-	switch(opcode)
-	{
-		case '+': res = arg2 + arg1; break;
-		case '-': res = arg2 - arg1; break;
-		case '*': res = arg2 * arg1; break;
-		case '/':
-			  if (!arg1)
-				  throw Rpn::Error();
-			  res = arg2 / arg1;
-	}
-	return (res);
-}
-*/
 
 // push operations
 void Rpn::appendOperationToByteCode(char operation, bool firstOperation)
@@ -296,11 +311,13 @@ int Rpn::pop_rsp(void)
 	stackTop = s.stack.top();
 	s.stack.pop();
 	s.rip++;
+	cerr << "[DEBUG] [STACK] [POP] " << stackTop << endl;
 	return stackTop;
 }
 
 void Rpn::push_rsp(int data)
 {
+	cerr << "[PUSH] " << data << endl << endl;
 	s.stack.push(data);
 }
 

@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 	{
 		string notation(argv[1]);
 		Rpn rpn(notation);
-		//cout << rpn.getResult() << endl;
+		cout << rpn.getResult() << endl;
 	} catch (std::exception &e)
 	{
 		cerr << e.what() << endl;

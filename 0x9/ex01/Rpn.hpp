@@ -68,25 +68,34 @@ class Rpn
 		static vector<string> splitTokensBySpace(string &tokens);
 
 		// private class funcationalities
+		// validaiton
 		vector<string> validateRpnNotation(string &notation);
+
+		// DEBUG
+		void printIteratorGroup(vector<string> &tokens, vector<string>::iterator &curr);
+
+		// compilatipon
 		void compileRpnNotation(vector<string> tokens);
 		void displayCompiledCode();
 		void displayOperation(vector<char>::iterator &opIt);
+
+		// execution
+		void executeCompiledCode();
+		void execSingleOpcode(vector<char>::iterator &opIt);
 
 		// bytecode operations
 		void appendToByteCode(char data);
 
 		// stack operations
-		void getNextOperand();
 		void appendByteToByteCode(char byte);
 		void appendOperationToByteCode(char operation, bool firstOperation);
 		void appendOpcodeToByteCode(char opcode, bool firstOpcode);
 		void appendOperandToByteCode(char data);
 		void pushOpcode(char data);
 		void pushOperand(char data);
-		vector<string>::iterator getNextOperand(vector<string> &opcodes);
+		char getNextOperand(vector<string> &opcodes, vector<string>::iterator &currOpcodeIt);
 
-		// 
+		//
 		void pushData(char data);
 
 		void push_rsp(int data);
