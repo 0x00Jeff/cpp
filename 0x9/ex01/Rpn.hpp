@@ -30,7 +30,6 @@ enum BYTECODE
 	SUB_OPCODE,
 	MUL_OPCODE,
 	DIV_OPCODE,
-	STOP_OPCODE
 };
 
 enum OPERATIONS
@@ -92,7 +91,7 @@ class Rpn
 		// compilation helpers
 		char getNextOperation(vector<string> &tokens, vector<string>::iterator &opIt);
 		char getNextOperand(vector<string> &tokens, vector<string>::iterator &opIt);
-		void pushFirstOperand(vector<string> &tokens, vector<string>::iterator &opIt);
+		void pushFirstOperand(vector<string> &tokens);
 
 		// stack operations // TODO : lol we don't have a stack anymore
 		void appendByteToByteCode(char byte);

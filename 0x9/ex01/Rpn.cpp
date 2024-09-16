@@ -13,20 +13,22 @@ void Rpn::displayCompiledCode()
 	vector<char>::iterator opIt = s.opcodes.begin();
 	vector<char>::iterator opIte = s.opcodes.end();
 
-	for(; opIt < opIte; opIt++)
+	cout << "ACC " << static_cast<char>(s.accumulator) << endl;
+
+	for(; opIt != opIte;)
 		displayOperation(opIt);
 }
 
 void Rpn::displayOperation(vector<char>::iterator &opIt)
 {
-	switch(*opIt)
+	switch(*opIt++)
 	{
 		case ADD_OPCODE: cout << "ADD "; break;
 		case SUB_OPCODE: cout << "SUB "; break;
 		case MUL_OPCODE: cout << "MUL "; break;
 		case DIV_OPCODE: cout << "DIV "; break;
 	}
-	cout << *(++opIt) << endl;
+	cout << static_cast<char>(*opIt++) << endl;
 }
 
 void Rpn::executeCompiledCode()
@@ -207,9 +209,19 @@ char Rpn::getNextOperation(vector<string> &tokens, vector<string>::iterator &opI
 	return operation;
 }
 
-void Rpn::pushFirstOperand(vector<string> &tokens, vector<string>::iterator &opIt)
+void Rpn::pushFirstOperand(vector<string> &tokens)
 {
-	s.accumulator = getNextOperand(tokens, opIt);
+	vector<string>::iterator opIt = tokens.begin();
+	while(!isValidOperation((*opIt)[0]))
+		opIt++;
+
+	opIt--;
+
+	s.accumulator = (*opIt)[0];
+
+	tokens.erase(opIt);
+//
+//	s.accumulator = getNextOperand(tokens, opIt);
 }
 
 char Rpn::getNextOperand(vector<string> &tokens, vector<string>::iterator &opIt)
@@ -238,31 +250,21 @@ void Rpn::compileRpnNotation(vector<string> tokens)
 	char operand;
 	char operation;
 
-	cout << " before special case : tokens.size() = " << tokens.size() << endl;
-	pushFirstOperand(tokens, opIt);
-	cout << "pushed operand = " << s.accumulator << endl;
-	cout << " after special case : tokens.size() = " << tokens.size() << endl;
-	s.accumulator = getNextOperand(tokens, opIt);
+	pushFirstOperand(tokens);
 	while(tokens.size())
 	{
 		// find operation, erase it, and return its byte
 		// and update opIt internally, so we can use it later
 		// in getNextOperand
 		operation = getNextOperation(tokens, opIt);
-		appendOpcodeToByteCode(operation);
-
-		cout << "found operation = " << operation << endl;
+		appendOperationToByteCode(operation);
 
 		// find operation, erase it, and return its byte
 		// and update opIt internally, so we can use it later
 		// in getNextOperation
 		operand = getNextOperand(tokens, opIt);
-		cout << "found operand = " << operand << endl;
-		appendOperandToByteCode(operation);
-
-		cout << "tokens.size() = " << tokens.size() << endl;
+		appendOperandToByteCode(operand);
 	}
-	appendOperandToByteCode(STOP_OPCODE);
 }
 
 
