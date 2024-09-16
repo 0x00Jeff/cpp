@@ -95,9 +95,9 @@ void PmergeMe::binaryInsertionSort(CONTAINER &c, size_t start, size_t size)
 }
 
 // exceptions
-const char *PmergeMe::invalidNumber::what() const throw()
+const char *PmergeMe::Error::what() const throw()
 {
-	return "invalid positive number";
+	return "Error";
 }
 
 const char *PmergeMe::emptyContainerPop::what() const throw()
@@ -108,20 +108,29 @@ const char *PmergeMe::emptyContainerPop::what() const throw()
 // class functionalities
 void PmergeMe::parseInput(string input)
 {
+
+	size_t count = 0;
 	stringstream inputStream(input);
 	int inputElem;
+
+	if (!input.size())
+		throw PmergeMe::Error();
 
 	// TODO : detect overflow
 	while(inputStream >> inputElem)
 	{
+		count++;
 		if (inputElem < 0)
-			throw PmergeMe::invalidNumber();
+			throw PmergeMe::Error();
 		inputVec.push_back(inputElem);
 		inputDeq.push_back(inputElem);
 	}
 
 	if (inputStream.fail() && !inputStream.eof())
-		throw PmergeMe::invalidNumber();
+		throw PmergeMe::Error();
+
+	if (!count)
+		throw PmergeMe::Error();
 }
 
 template <typename CONTAINER>

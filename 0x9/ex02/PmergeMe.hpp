@@ -27,7 +27,7 @@ class PmergeMe
 		deque<int> inputDeq;
 
 		// exceptions
-		class invalidNumber : public std::exception
+		class Error : public std::exception
 		{
 			virtual const char *what() const throw();
 		};
