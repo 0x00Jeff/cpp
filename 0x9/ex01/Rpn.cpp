@@ -5,7 +5,7 @@ Rpn::Rpn(string &notation)
 {
 	compileRpnNotation(validateRpnNotation(notation));
 	displayCompiledCode();
-	//executeCompiledCode();
+	executeCompiledCode();
 }
 
 void Rpn::displayCompiledCode()
@@ -13,7 +13,7 @@ void Rpn::displayCompiledCode()
 	vector<char>::iterator opIt = s.opcodes.begin();
 	vector<char>::iterator opIte = s.opcodes.end();
 
-	cout << "ACC " << static_cast<char>(s.accumulator) << endl;
+	cout << "ACC " << s.accumulator << endl;
 
 	for(; opIt != opIte;)
 		displayOperation(opIt);
@@ -36,42 +36,39 @@ void Rpn::executeCompiledCode()
 	vector<char>::iterator opIt = s.opcodes.begin();
 	vector<char>::iterator opIte = s.opcodes.end();
 
-	for(; opIt != opIte; opIt++)
+	for(; opIt != opIte;)
 		execSingleOpcode(opIt);
 }
 
 void Rpn::execSingleOpcode(vector<char>::iterator &opIt)
 {
-	char opcode = *opIt;
+	char opcode = *opIt++;
 	int arg1, arg2;
 
 
 	arg1 = s.accumulator;
 	// TODO : ask ysf how to refractor this garbage;
-	string tmpArg(1, *(++opIt));
-	arg2 = atoi(tmpArg.c_str());
 
-	cerr << "[DEBUG] [EXEC] [ARG1] " << arg1 << endl;
-	cerr << "[DEBUG] [EXEC] [ARG2] " << arg2 << endl;
+	arg2 = *opIt++ - '0';
 
-	cerr << "[DEBUG] [EXEC] ";
+	cerr << "[EXEC] ";
 	switch(opcode)
 	{
 		case ADD_OPCODE:
-			cerr << "[ADD] ";
-			s.accumulator = arg1 + arg2; break;
+			cerr << "[ADD] "; s.accumulator = arg1 + arg2; break;
 		case SUB_OPCODE:
-			cerr << "[SUB] ";
-			s.accumulator = arg1 - arg2; break;
+			cerr << "[SUB] "; s.accumulator = arg1 - arg2; break;
 		case MUL_OPCODE:
-			cerr << "[MUL] ";
-			s.accumulator = arg1 * arg2; break;
+			cerr << "[MUL] "; s.accumulator = arg1 * arg2; break;
 		case DIV_OPCODE:
 			cerr << "[DIV] ";
 				if (!arg2)
 					throw Rpn::Error();
 				s.accumulator = arg1 / arg2; break;
 	}
+	cerr << "[ARG1] " << arg1 << " ";
+	cerr << "[ARG2] " << arg2 ;
+	cerr << " >> [ACC] " << s.accumulator << endl;
 }
 
 // DEBUG
@@ -217,7 +214,7 @@ void Rpn::pushFirstOperand(vector<string> &tokens)
 
 	opIt--;
 
-	s.accumulator = (*opIt)[0];
+	s.accumulator = (*opIt)[0] - '0';
 
 	tokens.erase(opIt);
 //
